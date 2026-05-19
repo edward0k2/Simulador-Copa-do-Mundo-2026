@@ -36,11 +36,33 @@
                 <button id="btn-share-link" class="btn btn-primary">Compartilhar Link</button>
                 <button id="btn-share-print" class="btn btn-secondary">Baixar Imagem (Print)</button>
                 <button id="btn-print-pdf" class="btn btn-secondary" style="background: #4b5563; color: white; box-shadow: 0 4px 14px rgba(75, 85, 99, 0.4);">🖨️ Baixar PDF (P&B)</button>
+                <a href="https://www.google.com/search?q=jogos+da+copa+do+mundo+2026+ao+tempo+real" target="_blank" class="btn btn-secondary" style="background: #ea4335; color: white; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;"><path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.529-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c5.895 0 9.817-4.143 9.817-9.99 0-.672-.072-1.187-.16-1.705H12.24z"/></svg>
+                    Acompanhar no Google 🔴
+                </a>
                 <button id="btn-reset" class="btn btn-close" style="margin: 0; padding: 12px 24px;">🔄 Limpar Tudo</button>
             </div>
         </header>
 
+        <div class="tab-container">
+            <button id="tab-guesses" class="tab-btn active">✍️ Meus Palpites</button>
+            <button id="tab-live" class="tab-btn">🔴 Resultados Reais (Ao Vivo)</button>
+        </div>
+
         <main>
+            <!-- Painel de Controle do Modo Ao Vivo (Oculto por padrão) -->
+            <div id="live-control-panel" class="live-panel hidden">
+                <div class="live-panel-header">
+                    <h3>🔴 Painel de Monitoramento Ao Vivo</h3>
+                    <span id="live-connection-status" class="status-connected">Aguardando Início dos Jogos...</span>
+                </div>
+                <p>Os placares abaixo são atualizados em tempo real conforme as partidas acontecem. Você também pode experimentar a simulação da rodada ao vivo para ver a tabela e o mata-mata mudarem dinamicamente!</p>
+                <div class="live-actions">
+                    <button id="btn-start-live-sim" class="btn btn-primary" style="background: #ea4335; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); color: white;">⚽ Iniciar Simulação de Jogos Ao Vivo</button>
+                    <button id="btn-stop-live-sim" class="btn btn-close hidden" style="margin: 0; padding: 12px 24px;">⏹️ Parar Simulação</button>
+                </div>
+            </div>
+
             <section id="groups-container">
                 <!-- Grupos serão gerados aqui pelo JS -->
             </section>

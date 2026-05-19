@@ -54,7 +54,16 @@ const knockoutContainer = document.getElementById('knockout-container');
 const bracketGrid = document.getElementById('bracket-grid');
 const teamStatsModal = document.getElementById('team-stats-modal');
 
-let state = {}; // Armazena os placares
+let guessesState = {}; // Os palpites manuais do usuário
+let liveState = {};    // Os resultados em tempo real (oficial / simulado)
+let currentMode = 'guesses'; // 'guesses' ou 'live'
+let liveMatchInfo = {}; // Status de cada jogo ao vivo { matchId: { minute: 0, status: 'NOT_STARTED'|'LIVE'|'FINISHED' } }
+let liveSimInterval = null;
+let liveSimPhase = 'group-1'; // 'group-1', 'group-2', 'group-3', 'ko-0', 'ko-1', 'ko-2', 'ko-3', 'ko-4'
+let liveSimTime = 0;
+let isSimulating = false;
+
+let state = guessesState; // Armazena os placares (aponta para o estado atual ativo)
 let stateHistory = []; // Armazena o histórico de estados
 
 // Verifica se o usuário preencheu pelo menos um placar no site
@@ -107,12 +116,291 @@ function generateStickers() {
     });
 }
 
+function setupTabListeners() {
+    const tabGuesses = document.getElementById('tab-guesses');
+    const tabLive = document.getElementById('tab-live');
+    const btnStartSim = document.getElementById('btn-start-live-sim');
+    const btnStopSim = document.getElementById('btn-stop-live-sim');
+    
+    if (tabGuesses) {
+        tabGuesses.addEventListener('click', () => switchTab('guesses'));
+    }
+    
+    if (tabLive) {
+        tabLive.addEventListener('click', () => {
+            switchTab('live');
+            fetchRealTimeResults();
+        });
+    }
+    
+    if (btnStartSim) {
+        btnStartSim.addEventListener('click', startLiveSimulation);
+    }
+    
+    if (btnStopSim) {
+        btnStopSim.addEventListener('click', stopLiveSimulation);
+    }
+}
+
+function switchTab(tab) {
+    if (tab === currentMode) return;
+    
+    // Parar simulação ao sair da aba de jogo ao vivo
+    if (currentMode === 'live' && isSimulating) {
+        stopLiveSimulation();
+    }
+    
+    if (tab === 'guesses') {
+        // Salva estado ao vivo se houver mudanças
+        liveState = JSON.parse(JSON.stringify(state));
+        // Restaura palpites manuais
+        state = guessesState;
+        currentMode = 'guesses';
+    } else {
+        // Salva palpites manuais
+        guessesState = JSON.parse(JSON.stringify(state));
+        // Restaura estado ao vivo
+        state = liveState;
+        currentMode = 'live';
+    }
+    
+    // Atualiza classes das abas na UI
+    const tabGuesses = document.getElementById('tab-guesses');
+    const tabLive = document.getElementById('tab-live');
+    if (tabGuesses) tabGuesses.classList.toggle('active', tab === 'guesses');
+    if (tabLive) tabLive.classList.toggle('active', tab === 'live');
+    
+    // Exibe ou oculta o painel ao vivo
+    const panel = document.getElementById('live-control-panel');
+    if (panel) {
+        if (tab === 'live') {
+            panel.classList.remove('hidden');
+        } else {
+            panel.classList.add('hidden');
+        }
+    }
+    
+    // Zera o histórico ao trocar de aba para evitar desfazer estados cruzados
+    stateHistory = [];
+    updateActionButtons();
+    
+    // Re-renderiza a tela com o novo estado
+    renderGroups();
+    generateKnockoutBracket();
+}
+
+function startLiveSimulation() {
+    if (isSimulating) return;
+    isSimulating = true;
+    
+    // Esconde o botão de Iniciar e mostra o de Parar
+    document.getElementById('btn-start-live-sim').classList.add('hidden');
+    document.getElementById('btn-stop-live-sim').classList.remove('hidden');
+    
+    const statusEl = document.getElementById('live-connection-status');
+    if (statusEl) {
+        statusEl.className = 'status-live';
+        statusEl.textContent = 'Simulação Ao Vivo Iniciada 🔴';
+    }
+    
+    // Limpa placares de simulação anteriores
+    for (let key in liveState) delete liveState[key];
+    liveMatchInfo = {};
+    liveSimPhase = 'group-1';
+    liveSimTime = 0;
+    
+    renderGroups();
+    generateKnockoutBracket();
+    
+    liveSimInterval = setInterval(() => {
+        liveSimTime += 3; // 3 minutos simulados a cada segundo
+        
+        if (liveSimTime > 90) {
+            finishPhase();
+            return;
+        }
+        
+        updateActiveMatches();
+    }, 1000);
+}
+
+function stopLiveSimulation() {
+    if (liveSimInterval) {
+        clearInterval(liveSimInterval);
+        liveSimInterval = null;
+    }
+    isSimulating = false;
+    
+    const btnStart = document.getElementById('btn-start-live-sim');
+    const btnStop = document.getElementById('btn-stop-live-sim');
+    if (btnStart) btnStart.classList.remove('hidden');
+    if (btnStop) btnStop.classList.add('hidden');
+    
+    const statusEl = document.getElementById('live-connection-status');
+    if (statusEl) {
+        statusEl.className = 'status-connected';
+        statusEl.textContent = 'Simulação Concluída / Pausada';
+    }
+}
+
+function updateActiveMatches() {
+    const activeMatches = getActiveMatchesForPhase(liveSimPhase);
+    const statusEl = document.getElementById('live-connection-status');
+    
+    if (statusEl) {
+        const faseNomes = {
+            'group-1': 'Fase de Grupos - Rodada 1',
+            'group-2': 'Fase de Grupos - Rodada 2',
+            'group-3': 'Fase de Grupos - Rodada 3',
+            'ko-0': 'Mata-Mata - Dezesseis-avos',
+            'ko-1': 'Mata-Mata - Oitavas de Final',
+            'ko-2': 'Mata-Mata - Quartas de Final',
+            'ko-3': 'Mata-Mata - Semifinais',
+            'ko-4': 'Mata-Mata - Grande Final'
+        };
+        statusEl.textContent = `Ao Vivo: ${faseNomes[liveSimPhase]} (${liveSimTime}') 🔴`;
+    }
+    
+    activeMatches.forEach(matchId => {
+        if (!liveState[matchId]) {
+            liveState[matchId] = { home: '0', away: '0' };
+        }
+        
+        liveMatchInfo[matchId] = { minute: liveSimTime, status: 'LIVE' };
+        
+        // Peso leve com base no sorteio de gols
+        if (Math.random() < 0.04) {
+            liveState[matchId].home = (parseInt(liveState[matchId].home || 0) + 1).toString();
+        }
+        if (Math.random() < 0.04) {
+            liveState[matchId].away = (parseInt(liveState[matchId].away || 0) + 1).toString();
+        }
+    });
+    
+    renderGroups();
+    generateKnockoutBracket();
+}
+
+function finishPhase() {
+    const activeMatches = getActiveMatchesForPhase(liveSimPhase);
+    
+    activeMatches.forEach(matchId => {
+        if (liveMatchInfo[matchId]) {
+            liveMatchInfo[matchId].status = 'FINISHED';
+        }
+        
+        // Garante que não haja empates no Mata-Mata
+        if (matchId.startsWith('ko-') && liveState[matchId]) {
+            if (liveState[matchId].home === liveState[matchId].away) {
+                if (Math.random() < 0.5) {
+                    liveState[matchId].home = (parseInt(liveState[matchId].home) + 1).toString();
+                } else {
+                    liveState[matchId].away = (parseInt(liveState[matchId].away) + 1).toString();
+                }
+            }
+        }
+    });
+    
+    // Transiciona para a próxima fase da Copa
+    if (liveSimPhase === 'group-1') {
+        liveSimPhase = 'group-2';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'group-2') {
+        liveSimPhase = 'group-3';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'group-3') {
+        liveSimPhase = 'ko-0';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'ko-0') {
+        liveSimPhase = 'ko-1';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'ko-1') {
+        liveSimPhase = 'ko-2';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'ko-2') {
+        liveSimPhase = 'ko-3';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'ko-3') {
+        liveSimPhase = 'ko-4';
+        liveSimTime = 0;
+    } else if (liveSimPhase === 'ko-4') {
+        stopLiveSimulation();
+        alert('🏆 Copa do Mundo de 2026 Concluída! Todos os resultados da simulação ao vivo foram gerados!');
+        return;
+    }
+    
+    renderGroups();
+    generateKnockoutBracket();
+}
+
+function getActiveMatchesForPhase(phase) {
+    let matches = [];
+    if (phase === 'group-1') {
+        for (const grp of Object.keys(worldCupGroups)) {
+            matches.push(`${grp}-0`, `${grp}-1`);
+        }
+    } else if (phase === 'group-2') {
+        for (const grp of Object.keys(worldCupGroups)) {
+            matches.push(`${grp}-2`, `${grp}-3`);
+        }
+    } else if (phase === 'group-3') {
+        for (const grp of Object.keys(worldCupGroups)) {
+            matches.push(`${grp}-4`, `${grp}-5`);
+        }
+    } else if (phase === 'ko-0') {
+        for (let i = 0; i < 16; i++) matches.push(`ko-0-${i}`);
+    } else if (phase === 'ko-1') {
+        for (let i = 0; i < 8; i++) matches.push(`ko-1-${i}`);
+    } else if (phase === 'ko-2') {
+        for (let i = 0; i < 4; i++) matches.push(`ko-2-${i}`);
+    } else if (phase === 'ko-3') {
+        for (let i = 0; i < 2; i++) matches.push(`ko-3-${i}`);
+    } else if (phase === 'ko-4') {
+        matches.push('ko-4-0');
+    }
+    return matches;
+}
+
+async function fetchRealTimeResults() {
+    const statusEl = document.getElementById('live-connection-status');
+    if (statusEl) {
+        statusEl.textContent = 'Conectando ao servidor oficial...';
+    }
+    
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/edward0k2/Simulador-Copa-do-Mundo-2026/main/live-results.json');
+        if (response.ok) {
+            const data = await response.json();
+            for (let key in liveState) delete liveState[key];
+            Object.assign(liveState, data.scores || {});
+            liveMatchInfo = data.matchInfo || {};
+            
+            if (statusEl) {
+                statusEl.className = 'status-connected';
+                statusEl.textContent = 'Dados Reais Sincronizados';
+            }
+            
+            renderGroups();
+            generateKnockoutBracket();
+        } else {
+            throw new Error('Servidor indisponível');
+        }
+    } catch (e) {
+        console.log("Aviso: Dados oficiais em tempo real indisponíveis. Pronto para simulação local.");
+        if (statusEl) {
+            statusEl.className = 'status-connected';
+            statusEl.textContent = 'Pronto para Simulação Ao Vivo';
+        }
+    }
+}
+
 // Inicializa o estado e renderiza
 function init() {
     loadStateFromURL();
     renderGroups();
     generateKnockoutBracket(); // Mostra o mata-mata desde o início
     setupListeners();
+    setupTabListeners(); // Nova escuta de abas e simulador ao vivo
     generateStickers(); // Gera a página de figurinhas para recorte
 }
 
@@ -235,15 +523,28 @@ function renderGroups() {
         matches.forEach((match, index) => {
             const matchId = `${groupName}-${index}`;
             const s = state[matchId] || { home: '', away: '' };
+            const isReadOnly = currentMode === 'live' ? 'readonly' : '';
+            
+            // Exibe badge de status do jogo se estiver em modo tempo real e houver informações
+            const info = liveMatchInfo[matchId];
+            let vsDisplay = '<span class="vs-text">X</span>';
+            if (currentMode === 'live' && info) {
+                if (info.status === 'LIVE') {
+                    vsDisplay = `<span class="match-status-badge live">${info.minute}'</span>`;
+                } else if (info.status === 'FINISHED') {
+                    vsDisplay = `<span class="match-status-badge finished">FIM</span>`;
+                }
+            }
+
             tableHTML += `
                 <div class="match">
                     <div class="match-team home-team">
                         <img src="${getFlagURL(match.home)}" class="group-flag" alt="${match.home}">
                         <span class="team-name" title="${match.home}">${teamCodes[match.home]}</span>
                     </div>
-                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="home" value="${s.home}">
-                    <span class="vs-text">X</span>
-                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="away" value="${s.away}">
+                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="home" value="${s.home}" ${isReadOnly}>
+                    ${vsDisplay}
+                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="away" value="${s.away}" ${isReadOnly}>
                     <div class="match-team away-team">
                         <span class="team-name" title="${match.away}">${teamCodes[match.away]}</span>
                         <img src="${getFlagURL(match.away)}" class="group-flag" alt="${match.away}">
@@ -288,7 +589,9 @@ function setupListeners() {
     // Ações dos novos botões
     document.getElementById('btn-undo').addEventListener('click', () => {
         if (stateHistory.length > 0) {
-            state = stateHistory.pop();
+            const previous = stateHistory.pop();
+            for (let key in state) delete state[key];
+            Object.assign(state, previous);
             updateURL();
             renderGroups();
             generateKnockoutBracket();
@@ -315,7 +618,7 @@ function setupListeners() {
         btnReset.addEventListener('click', () => {
             if (confirm("Tem certeza que deseja resetar toda a simulação? Isso apagará todos os placares dos grupos e do mata-mata.")) {
                 saveStateToHistory();
-                state = {};
+                for (let key in state) delete state[key];
                 updateURL();
                 renderGroups();
                 generateKnockoutBracket();
@@ -535,17 +838,33 @@ function generateKnockoutBracket() {
         const flagA = teamA === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamA)}" alt="${teamA}" title="${teamA}" class="team-flag team-name" />`;
         const flagB = teamB === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamB)}" alt="${teamB}" title="${teamB}" class="team-flag team-name" />`;
 
+        const isReadOnly = currentMode === 'live' ? 'readonly' : '';
+        const disabledA = teamA === 'TBD' ? 'disabled' : '';
+        const disabledB = teamB === 'TBD' ? 'disabled' : '';
+
+        // Badge de tempo real para o Mata-Mata
+        const info = liveMatchInfo[matchId];
+        let badgeHTML = '';
+        if (currentMode === 'live' && info) {
+            if (info.status === 'LIVE') {
+                badgeHTML = `<div style="position: absolute; top: -10px; background: #ea4335; color: white; font-size: 0.65rem; font-weight: bold; padding: 2px 6px; border-radius: 10px; border: 1px solid var(--border-color); animation: liveTextPulse 1.5s infinite ease-in-out; z-index: 10;">AO VIVO ${info.minute}'</div>`;
+            } else if (info.status === 'FINISHED') {
+                badgeHTML = `<div style="position: absolute; top: -10px; background: #10b981; color: white; font-size: 0.65rem; font-weight: bold; padding: 2px 6px; border-radius: 10px; border: 1px solid var(--border-color); z-index: 10;">FIM</div>`;
+            }
+        }
+
         return `
             <div class="knockout-match" tabindex="0">
+                ${badgeHTML}
                 <div class="knockout-team-row">
                     ${flagA}
                     <span class="team-name" title="${teamA}">${teamA === 'TBD' ? '?' : teamCodes[teamA]}</span>
-                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="home" value="${s.home || ''}" ${teamA === 'TBD' ? 'disabled' : ''}>
+                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="home" value="${s.home || ''}" ${disabledA} ${isReadOnly}>
                 </div>
                 <div class="knockout-team-row">
                     ${flagB}
                     <span class="team-name" title="${teamB}">${teamB === 'TBD' ? '?' : teamCodes[teamB]}</span>
-                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="away" value="${s.away || ''}" ${teamB === 'TBD' ? 'disabled' : ''}>
+                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="away" value="${s.away || ''}" ${disabledB} ${isReadOnly}>
                 </div>
             </div>
         `;
@@ -644,7 +963,9 @@ function loadStateFromURL() {
     const simData = params.get('sim');
     if (simData) {
         try {
-            state = JSON.parse(atob(simData));
+            const parsed = JSON.parse(atob(simData));
+            for (let key in guessesState) delete guessesState[key];
+            Object.assign(guessesState, parsed);
         } catch (e) {
             console.error("Erro ao ler o estado da URL", e);
         }
