@@ -695,13 +695,13 @@ footer {
 @media print {
     @page {
         size: landscape;
-        margin: 10mm;
+        margin: 8mm; /* Reduzido de 10mm para dar mais espaço vertical */
     }
 
     body {
         background: #ffffff !important;
         color: #000000 !important;
-        font-size: 11pt !important;
+        font-size: 10pt !important;
     }
 
     #app-container {
@@ -720,7 +720,8 @@ footer {
     button, 
     #btn-undo, 
     #btn-clear-ko, 
-    .actions-bar {
+    .actions-bar,
+    header p { /* Oculta a descrição do cabeçalho para economizar espaço vertical */
         display: none !important;
     }
 
@@ -729,31 +730,26 @@ footer {
         background: none !important;
         border: none !important;
         box-shadow: none !important;
-        padding: 10px 0 20px 0 !important;
-        margin-bottom: 20px !important;
+        padding: 5px 0 10px 0 !important;
+        margin-bottom: 10px !important;
         text-align: center !important;
     }
 
     header h1 {
         color: #000000 !important;
-        font-size: 24pt !important;
-        margin-bottom: 5px !important;
+        font-size: 20pt !important;
+        margin-bottom: 2px !important;
     }
 
     header h1 span {
         color: #555555 !important;
     }
 
-    header p {
-        color: #333333 !important;
-        font-size: 12pt !important;
-    }
-
     /* PÁGINA 1: FASE DE GRUPOS */
     #groups-container {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important; /* 4 colunas na folha Paisagem */
-        gap: 10px !important;
+        gap: 8px !important;
         page-break-after: always !important;
         break-after: page !important;
         width: 100% !important;
@@ -764,7 +760,7 @@ footer {
         border: 1px solid #666666 !important;
         box-shadow: none !important;
         border-radius: 6px !important;
-        padding: 8px !important;
+        padding: 6px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
@@ -772,21 +768,21 @@ footer {
     .group-card h3.group-title {
         color: #000000 !important;
         text-shadow: none !important;
-        font-size: 13pt !important;
-        margin-bottom: 8px !important;
+        font-size: 11pt !important;
+        margin-bottom: 4px !important;
         border-bottom: 1px solid #333333 !important;
         padding-bottom: 2px !important;
     }
 
     table {
-        margin-bottom: 10px !important;
+        margin-bottom: 6px !important;
     }
 
     th, td {
         border-bottom: 1px solid #cccccc !important;
         color: #000000 !important;
-        padding: 4px !important;
-        font-size: 8pt !important;
+        padding: 2px 3px !important;
+        font-size: 7.5pt !important; /* Compactação da fonte */
     }
 
     th {
@@ -801,18 +797,18 @@ footer {
     .match {
         background: #f3f4f6 !important;
         border: 1px solid #dddddd !important;
-        padding: 4px !important;
-        gap: 4px !important;
+        padding: 3px !important;
+        gap: 3px !important;
     }
 
     .match-team .team-name {
         color: #000000 !important;
-        font-size: 8pt !important;
+        font-size: 7.5pt !important;
     }
 
     .vs-text {
         color: #666666 !important;
-        font-size: 7pt !important;
+        font-size: 6.5pt !important;
     }
 
     /* Estilo de Input de Placar impresso */
@@ -821,9 +817,9 @@ footer {
         border-bottom: 1px solid #000000 !important;
         background: transparent !important;
         color: #000000 !important;
-        font-size: 9pt !important;
-        width: 20px !important;
-        height: 20px !important;
+        font-size: 8pt !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 
     /* Deixar bandeiras em preto e branco charmoso */
@@ -833,10 +829,8 @@ footer {
         border: 1px solid #999999 !important;
     }
 
-    /* PÁGINA 2: MATA-MATA */
+    /* PÁGINA 2: MATA-MATA (Removido page-break-before redundante para evitar páginas em branco) */
     #knockout-container {
-        page-break-before: always !important;
-        break-before: page !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         margin-top: 0 !important;
@@ -847,8 +841,8 @@ footer {
 
     #knockout-container h2 {
         color: #000000 !important;
-        font-size: 16pt !important;
-        margin-bottom: 10px !important;
+        font-size: 15pt !important;
+        margin-bottom: 8px !important;
         text-align: center !important;
     }
 
@@ -862,11 +856,11 @@ footer {
         width: 1000px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.64) !important; /* Escala perfeita para caber na folha A4 Paisagem sem quebrar */
+        transform: scale(0.58) !important; /* Escala calibrada em 0.58 para acomodar perfeitamente na margem inferior */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        height: 460px !important; /* Altura exata para reter o espaço escalado no fluxo da página */
+        height: 410px !important; /* Altura reduzida para conter a escala sem estourar a página */
     }
 
     /* Manter a flexibilidade original das colunas */
@@ -888,7 +882,7 @@ footer {
         box-shadow: none !important;
         color: #000000 !important;
         border-radius: 8px !important;
-        padding: 8px 12px !important;
+        padding: 6px 10px !important;
         min-width: 130px !important;
         transform: none !important;
     }
@@ -900,7 +894,7 @@ footer {
     }
 
     .knockout-team-row input[type="radio"] {
-        transform: scale(1.1) !important;
+        transform: scale(1.0) !important;
         accent-color: #000000 !important;
     }
 
@@ -909,9 +903,9 @@ footer {
         border-bottom: 1px solid #000000 !important;
         background: transparent !important;
         color: #000000 !important;
-        font-size: 9pt !important;
-        width: 25px !important;
-        height: 20px !important;
+        font-size: 8pt !important;
+        width: 20px !important;
+        height: 18px !important;
     }
 
     .final-match {
