@@ -837,58 +837,59 @@ footer {
     #knockout-container {
         page-break-before: always !important;
         break-before: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
         margin-top: 0 !important;
         padding: 0 !important;
         width: 100% !important;
+        overflow: hidden !important;
     }
 
     #knockout-container h2 {
         color: #000000 !important;
-        font-size: 18pt !important;
-        margin-bottom: 15px !important;
+        font-size: 16pt !important;
+        margin-bottom: 10px !important;
         text-align: center !important;
-        border-bottom: 2px solid #000000 !important;
-        padding-bottom: 5px !important;
     }
 
     #bracket-grid {
         display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
+        justify-content: center !important;
         align-items: stretch !important;
-        gap: 10px !important;
-        min-width: 100% !important;
-        width: 100% !important;
-        padding: 0 !important;
-        margin-top: 10px !important;
-        transform: scale(0.9) !important; /* Ligeira redução para garantir acomodação perfeita na folha */
+        gap: 15px !important;
+        min-width: 1000px !important;
+        max-width: 1050px !important;
+        width: 1000px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        transform: scale(0.64) !important; /* Escala perfeita para caber na folha A4 Paisagem sem quebrar */
         transform-origin: top center !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        height: 460px !important; /* Altura exata para reter o espaço escalado no fluxo da página */
     }
 
+    /* Manter a flexibilidade original das colunas */
     .bracket-side {
         display: flex !important;
-        flex-direction: row !important;
-        gap: 8px !important;
-    }
-
-    .right-side {
-        flex-direction: row-reverse !important;
+        gap: 15px !important;
     }
 
     .bracket-col {
-        border-left: none !important;
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-        gap: 4px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        gap: 2px !important;
     }
 
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #333333 !important;
         box-shadow: none !important;
-        border-radius: 6px !important;
-        padding: 6px !important;
-        min-width: 110px !important;
+        color: #000000 !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        min-width: 130px !important;
         transform: none !important;
     }
 
