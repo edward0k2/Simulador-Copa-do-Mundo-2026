@@ -864,17 +864,17 @@ footer {
         flex-direction: row !important; /* Mantém a árvore horizontal original convergente */
         justify-content: space-between !important;
         align-items: stretch !important;
-        gap: 15px !important; /* Maior espaçamento horizontal entre as fases */
-        min-width: 1000px !important;
-        max-width: 1020px !important;
-        width: 1000px !important;
+        gap: 15px !important; /* Espaçamento horizontal confortável */
+        min-width: 1040px !important;
+        max-width: 1060px !important;
+        width: 1040px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.95) !important; /* Aumenta o tamanho geral para preencher a folha horizontalmente */
+        transform: scale(0.92) !important; /* Escala perfeita para aproveitar a largura total da folha */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        height: 480px !important; /* Altura ideal que afasta os confrontos e preenche o espaço vertical da folha */
+        height: 560px !important; /* Altura ampliada que afasta verticalmente os confrontos de forma majestosa */
         padding: 0 !important;
         margin-top: 10px !important;
     }
@@ -883,7 +883,7 @@ footer {
     .bracket-side {
         display: flex !important;
         flex-direction: row !important;
-        gap: 15px !important; /* Maior espaçamento horizontal */
+        gap: 15px !important; 
         width: auto !important;
     }
 
@@ -919,21 +919,21 @@ footer {
 
     .bracket-center h3 {
         color: #000000 !important;
-        font-size: 13pt !important;
+        font-size: 12pt !important;
         margin-bottom: 4px !important;
     }
 
-    /* Cards de Confrontos Confortáveis e Robustos */
+    /* Cards de Confrontos Elegantes que NUNCA se sobrepõem */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
         box-shadow: none !important;
         color: #000000 !important;
         border-radius: 6px !important;
-        padding: 4px 6px !important; /* Espaçamento interno confortável */
-        min-width: 145px !important;
-        width: 145px !important;
-        max-width: 145px !important;
+        padding: 3px 5px !important; 
+        min-width: 122px !important; /* Largura perfeita para não colidir com outras colunas */
+        width: 122px !important;
+        max-width: 122px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -941,7 +941,7 @@ footer {
         flex-direction: column !important;
         justify-content: center !important;
         gap: 3px !important;
-        height: 48px !important; /* Altura ideal que preenche e fica linda */
+        height: 44px !important; /* Altura ideal de grande legibilidade */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -951,57 +951,57 @@ footer {
     }
 
     .knockout-team-row {
-        height: 20px !important;
+        height: 18px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        gap: 4px !important;
+        gap: 3px !important;
     }
 
     .knockout-team-row input[type="radio"] {
-        transform: scale(1.1) !important; /* Rádio com tamanho normal de tela */
+        transform: scale(0.95) !important;
         accent-color: #000000 !important;
         margin: 0 !important;
     }
 
     .knockout-team-row input[type="number"] {
-        width: 22px !important; /* Input com tamanho excelente */
-        height: 16px !important;
+        width: 20px !important;
+        height: 14px !important;
         border: none !important;
         border-bottom: 1px solid #000000 !important;
         background: transparent !important;
         color: #000000 !important;
         font-weight: bold !important;
-        font-size: 8.5pt !important;
+        font-size: 8pt !important;
         text-align: center !important;
         padding: 0 !important;
     }
 
     .knockout-team-row .team-name {
-        font-size: 8.5pt !important;
+        font-size: 8pt !important;
         font-weight: bold !important;
-        max-width: 65px !important;
+        max-width: 60px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
 
     .team-flag {
-        width: 18px !important;
-        height: 12px !important;
-        margin-right: 4px !important;
+        width: 16px !important;
+        height: 11px !important;
+        margin-right: 3px !important;
         border: 1px solid #999999 !important;
     }
 
     .final-match {
-        transform: scale(1.15) !important; /* Destaque maior na Grande Final */
+        transform: scale(1.1) !important; 
         border: 2px solid #000000 !important;
         box-shadow: none !important;
         background: #ffffff !important;
     }
 
     .final-match:hover {
-        transform: scale(1.15) !important;
+        transform: scale(1.1) !important;
         box-shadow: none !important;
     }
 
@@ -1042,27 +1042,26 @@ footer {
 
     .sticker-item {
         border: 1px dashed #555555 !important; /* Linha de corte tracejada P&B */
-        padding: 4px !important;
-        width: 60px !important;
-        height: 50px !important;
+        padding: 2px !important;
+        width: 70px !important; /* Um pouco mais largo para acomodar a bandeira cheia */
+        height: 52px !important;
         background: #ffffff !important;
-        border-radius: 6px !important;
+        border-radius: 4px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     .sticker-flag {
-        width: 32px !important;
-        height: 22px !important;
-        border: 1px solid #999999 !important;
-        margin-bottom: 2px !important;
+        width: 64px !important; /* Preenche quase todo o espaço do card pontilhado */
+        height: 46px !important;
+        border: 1px solid #000000 !important;
+        object-fit: cover !important; /* Para a bandeira preencher com máxima qualidade e sem distorcer */
+        margin: 0 !important;
         filter: grayscale(100%) !important; /* Tudo em P&B economizador de tinta */
-        opacity: 0.7 !important;
-    }
-
-    .sticker-name {
-        font-size: 7.5pt !important;
-        color: #000000 !important;
+        opacity: 0.8 !important;
     }
 }
 }

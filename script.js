@@ -90,12 +90,7 @@ function generateStickers() {
             flag.src = getFlagURL(team);
             flag.alt = team;
             
-            const name = document.createElement('span');
-            name.className = 'sticker-name';
-            name.textContent = teamCodes[team] || team.substring(0, 3);
-            
             item.appendChild(flag);
-            item.appendChild(name);
             grid.appendChild(item);
         }
     });
