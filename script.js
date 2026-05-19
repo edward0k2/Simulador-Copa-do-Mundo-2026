@@ -57,6 +57,17 @@ const teamStatsModal = document.getElementById('team-stats-modal');
 let state = {}; // Armazena os placares
 let stateHistory = []; // Armazena o histórico de estados
 
+// Verifica se o usuário preencheu pelo menos um placar no site
+function isSimulationStarted() {
+    for (let key in state) {
+        const val = state[key];
+        if (val && (val.home !== '' || val.away !== '')) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function saveStateToHistory() {
     stateHistory.push(JSON.parse(JSON.stringify(state)));
     if (stateHistory.length > 50) stateHistory.shift(); // Limite de 50 passos
@@ -177,8 +188,8 @@ function updateGroupTables() {
                             <span title="${t.name}" style="white-space: nowrap;">${teamCodes[t.name]}</span>
                         </div>
                     </td>
-                    <td>${t.p}</td><td>${t.j}</td><td>${t.v}</td>
-                    <td>${t.e}</td><td>${t.d}</td><td>${t.sg}</td>
+                    <td>${t.j > 0 ? t.p : '_'}</td><td>${t.j > 0 ? t.j : '_'}</td><td>${t.j > 0 ? t.v : '_'}</td>
+                    <td>${t.j > 0 ? t.e : '_'}</td><td>${t.j > 0 ? t.d : '_'}</td><td>${t.j > 0 ? (t.sg > 0 ? '+' + t.sg : t.sg) : '_'}</td>
                 </tr>
             `).join('');
         }
@@ -212,8 +223,8 @@ function renderGroups() {
                                     <span title="${t.name}" style="white-space: nowrap;">${teamCodes[t.name]}</span>
                                 </div>
                             </td>
-                            <td>${t.p}</td><td>${t.j}</td><td>${t.v}</td>
-                            <td>${t.e}</td><td>${t.d}</td><td>${t.sg}</td>
+                            <td>${t.j > 0 ? t.p : '_'}</td><td>${t.j > 0 ? t.j : '_'}</td><td>${t.j > 0 ? t.v : '_'}</td>
+                            <td>${t.j > 0 ? t.e : '_'}</td><td>${t.j > 0 ? t.d : '_'}</td><td>${t.j > 0 ? (t.sg > 0 ? '+' + t.sg : t.sg) : '_'}</td>
                         </tr>
                     `).join('')}
                 </tbody>
@@ -477,6 +488,7 @@ function generateKnockoutBracket() {
     ];
 
     function getTeamByCode(code) {
+        if (!isSimulationStarted()) return "TBD";
         if (code === "3s") {
             const team = bestThirds[thirdIndex++];
             return team ? team.name : "TBD";
