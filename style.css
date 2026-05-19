@@ -865,12 +865,12 @@ footer {
         justify-content: space-between !important;
         align-items: stretch !important;
         gap: 20px !important; /* Excelente espaçamento horizontal entre as fases */
-        min-width: 900px !important;
-        max-width: 920px !important;
-        width: 900px !important;
+        min-width: 1080px !important;
+        max-width: 1100px !important;
+        width: 1080px !important; /* ESTICA ATÉ AS EXTREMIDADES LATERAIS DO PAPEL */
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.95) !important; /* Escala perfeita para aproveitar a largura total da folha */
+        transform: scale(0.98) !important; /* Escala máxima para preenchimento horizontal completo da folha */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -926,7 +926,7 @@ footer {
         margin-bottom: 4px !important;
     }
 
-    /* Cards de Confrontos Confortáveis e Estreitos (Evita 100% de colisões laterais) */
+    /* Cards de Confrontos Confortáveis, Robustos e Otimizados (Evita 100% de colisões laterais) */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
@@ -934,9 +934,9 @@ footer {
         color: #000000 !important;
         border-radius: 6px !important;
         padding: 4px 6px !important; 
-        min-width: 76px !important; /* Largura estreita cirúrgica que impede colisões */
-        width: 76px !important;
-        max-width: 76px !important;
+        min-width: 90px !important; /* Largura ideal ampliada que preenche a folha sem colidir */
+        width: 90px !important;
+        max-width: 90px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -944,7 +944,7 @@ footer {
         flex-direction: column !important;
         justify-content: space-between !important;
         gap: 4px !important;
-        height: 52px !important; /* Altura ideal compacta */
+        height: 62px !important; /* Altura ampliada confortável para o manuseio das figurinhas */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -954,7 +954,7 @@ footer {
     }
 
     .knockout-team-row {
-        height: 20px !important;
+        height: 24px !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
@@ -974,14 +974,14 @@ footer {
         display: none !important; /* Oculta os botões radio na impressão */
     }
 
-    /* Bandeiras Impressas de Volta como Base de Colagem (28x18px) */
+    /* Bandeiras Impressas de Volta como Base de Colagem Ampliada (36x24px) */
     .team-flag {
-        width: 28px !important;
-        height: 18px !important;
+        width: 36px !important; /* Caixa de colagem ampliada para caber as figurinhas perfeitamente! */
+        height: 24px !important;
         border: 1px solid #000000 !important;
         background: #ffffff !important;
         display: inline-block !important;
-        border-radius: 2px !important;
+        border-radius: 3px !important;
         box-shadow: none !important;
         margin: 0 !important;
         filter: grayscale(100%) !important; /* P&B econômico elegante */
@@ -995,27 +995,27 @@ footer {
 
     /* Caixa de Placar Elegante */
     .knockout-team-row input[type="number"] {
-        width: 20px !important;
-        height: 18px !important;
+        width: 22px !important; /* Caixa de placar robusta ao lado */
+        height: 20px !important;
         border: 1px solid #000000 !important;
         background: #ffffff !important;
         color: #000000 !important;
         font-weight: bold !important;
-        font-size: 9pt !important;
+        font-size: 10pt !important;
         text-align: center !important;
         border-radius: 3px !important;
         padding: 0 !important;
     }
 
     .final-match {
-        transform: scale(1.1) !important; 
+        transform: scale(1.15) !important; /* Destaque magnífico na Final */
         border: 2px solid #000000 !important;
         box-shadow: none !important;
         background: #ffffff !important;
     }
 
     .final-match:hover {
-        transform: scale(1.1) !important;
+        transform: scale(1.15) !important;
         box-shadow: none !important;
     }
 
@@ -1058,8 +1058,8 @@ footer {
     .sticker-item {
         border: 1px dashed #555555 !important; /* Linha de corte tracejada P&B */
         padding: 1px !important;
-        width: 36px !important; /* Tamanho de corte perfeitamente dimensionado */
-        height: 26px !important;
+        width: 40px !important; /* Tamanho de corte perfeitamente dimensionado */
+        height: 28px !important;
         background: #ffffff !important;
         border-radius: 3px !important;
         page-break-inside: avoid !important;
@@ -1070,8 +1070,8 @@ footer {
     }
 
     .sticker-flag {
-        width: 32px !important; /* Tamanho exato correspondente à caixa de colagem (32x22px) */
-        height: 22px !important;
+        width: 36px !important; /* Tamanho exato correspondente à nova caixa de colagem (36x24px) */
+        height: 24px !important;
         border: 1px solid #000000 !important;
         object-fit: cover !important; /* Mantém a proporção exata da bandeira sem distorcer */
         margin: 0 !important;

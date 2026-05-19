@@ -80,8 +80,8 @@ function generateStickers() {
     const allTeams = Object.values(worldCupGroups).flat();
     
     allTeams.forEach(team => {
-        // Gerar exatamente 4 figurinhas para cada seleção
-        for (let i = 0; i < 4; i++) {
+        // Gerar exatamente 5 figurinhas para cada seleção (são 5 jogos possíveis no mata-mata)
+        for (let i = 0; i < 5; i++) {
             const item = document.createElement('div');
             item.className = 'sticker-item';
             
