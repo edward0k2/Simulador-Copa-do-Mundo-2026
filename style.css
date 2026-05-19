@@ -75,10 +75,10 @@ header p {
 }
 
 .btn {
-    padding: 12px 24px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
     font-weight: 800;
     cursor: pointer;
     transition: all 0.3s ease;
