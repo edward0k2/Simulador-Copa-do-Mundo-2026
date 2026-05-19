@@ -271,6 +271,20 @@ function setupListeners() {
         }
     });
 
+    // Reset geral da simulação
+    const btnReset = document.getElementById('btn-reset');
+    if (btnReset) {
+        btnReset.addEventListener('click', () => {
+            if (confirm("Tem certeza que deseja resetar toda a simulação? Isso apagará todos os placares dos grupos e do mata-mata.")) {
+                saveStateToHistory();
+                state = {};
+                updateURL();
+                renderGroups();
+                generateKnockoutBracket();
+            }
+        });
+    }
+
     // Share Link
     document.getElementById('btn-share-link').addEventListener('click', () => {
         const url = window.location.href;
@@ -295,7 +309,8 @@ function setupListeners() {
         const appElement = document.getElementById('app-container');
         html2canvas(appElement, {
             backgroundColor: '#0f172a',
-            scale: 2
+            scale: 2,
+            useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = 'meu-simulador-copa2026.png';
@@ -347,30 +362,62 @@ function openTeamStats(team) {
 // ---- Lógica do Mata-Mata ----
 function generateKnockoutBracket() {
     if(!knockoutContainer) return;
-    bracketGrid.innerHTML = '';
     
-    // Puxa as tabelas de todos os grupos
-    let allGroupsResults = [];
-    for (const [groupName, teams] of Object.entries(worldCupGroups)) {
-        allGroupsResults.push({ group: groupName, table: calculateTable(groupName, teams) });
+    // Salvar foco antes de reconstruir para evitar perda de clique/pulos na tela
+    const activeEl = document.activeElement;
+    let activeMatchId = null;
+    let activeType = null;
+    let selStart = null;
+    let selEnd = null;
+    
+    if (activeEl && activeEl.classList.contains('score-input')) {
+        activeMatchId = activeEl.getAttribute('data-match');
+        activeType = activeEl.getAttribute('data-type');
+        selStart = activeEl.selectionStart;
+        selEnd = activeEl.selectionEnd;
     }
 
-    let qualified = [];
+    bracketGrid.innerHTML = '';
+    
+    // Puxa as tabelas de todos os grupos e separa os terceiros colocados
+    let groups = {};
     let thirdPlaces = [];
     
-    allGroupsResults.forEach(g => {
-        qualified.push(g.table[0]);
-        qualified.push(g.table[1]);
-        thirdPlaces.push(g.table[2]);
-    });
+    for (const [groupName, teams] of Object.entries(worldCupGroups)) {
+        const table = calculateTable(groupName, teams);
+        groups[groupName] = table;
+        thirdPlaces.push(table[2]);
+    }
 
+    // Ordena os terceiros colocados para pegar os 8 melhores
     thirdPlaces.sort((a, b) => {
         if (b.p !== a.p) return b.p - a.p;
         if (b.sg !== a.sg) return b.sg - a.sg;
         return b.gp - a.gp;
     });
 
-    qualified = qualified.concat(thirdPlaces.slice(0, 8));
+    const bestThirds = thirdPlaces.slice(0, 8);
+    let thirdIndex = 0;
+
+    // Chaveamento EXATO oficial (Lado Esquerdo e Lado Direito)
+    const matchups = [
+        // Lado Esquerdo
+        ["1E", "3s"], ["1I", "3s"], ["2A", "2B"], ["1F", "2C"],
+        ["2K", "2L"], ["1H", "2J"], ["1D", "3s"], ["1G", "3s"],
+        // Lado Direito
+        ["1C", "2F"], ["2E", "2I"], ["1A", "3s"], ["1L", "3s"],
+        ["1J", "2H"], ["2D", "2G"], ["1B", "3s"], ["1K", "3s"]
+    ];
+
+    function getTeamByCode(code) {
+        if (code === "3s") {
+            const team = bestThirds[thirdIndex++];
+            return team ? team.name : "TBD";
+        }
+        const pos = parseInt(code[0]) - 1;
+        const grp = code[1];
+        return groups[grp][pos]?.name || "TBD";
+    }
 
     // O Bracket tem 5 Fases (Tiers)
     const rounds = [
@@ -437,8 +484,9 @@ function generateKnockoutBracket() {
             let teamB = "TBD";
 
             if (round.tier === 0) {
-                teamA = qualified[i]?.name || "TBD";
-                teamB = qualified[31 - i]?.name || "TBD";
+                const matchDef = matchups[i];
+                teamA = getTeamByCode(matchDef[0]);
+                teamB = getTeamByCode(matchDef[1]);
             } else {
                 const prevMatchA = `ko-${round.tier - 1}-${i * 2}`;
                 const prevMatchB = `ko-${round.tier - 1}-${i * 2 + 1}`;
@@ -492,6 +540,17 @@ function generateKnockoutBracket() {
     bracketGrid.appendChild(leftSide);
     bracketGrid.appendChild(center);
     bracketGrid.appendChild(rightSide);
+
+    // Restaurar foco e cursor do mouse de forma síncrona
+    if (activeMatchId && activeType) {
+        const targetInput = bracketGrid.querySelector(`input[data-match="${activeMatchId}"][data-type="${activeType}"]`);
+        if (targetInput) {
+            targetInput.focus();
+            try {
+                targetInput.setSelectionRange(selStart, selEnd);
+            } catch (err) {}
+        }
+    }
 }
 
 function updateURL() {
