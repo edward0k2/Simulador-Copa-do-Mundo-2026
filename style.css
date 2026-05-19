@@ -836,23 +836,24 @@ footer {
         border: 1px solid #999999 !important;
     }
 
-    /* PÁGINA 2: MATA-MATA HORIZONTAL P&B IDÊNTICO AO PRINT DO MONITOR */
+    /* PÁGINA 2: MATA-MATA HORIZONTAL P&B IDÊNTICO AO PRINT DO MONITOR (COMPACTADO PARA 1 PÁGINA) */
     #knockout-container {
         page-break-before: always !important;
         break-before: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        margin-top: 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        overflow: visible !important;
+        overflow: hidden !important;
         text-align: center !important;
+        height: 100% !important;
     }
 
     #knockout-container h2 {
         color: #000000 !important;
-        font-size: 15pt !important;
-        margin-bottom: 5px !important;
+        font-size: 14pt !important;
+        margin: 0 0 5px 0 !important;
         text-align: left !important;
         border-bottom: 2px solid #000000 !important;
         padding-bottom: 2px !important;
@@ -860,29 +861,29 @@ footer {
 
     #bracket-grid {
         display: flex !important;
-        flex-direction: row !important; /* Árvore horizontal original convergente */
-        justify-content: center !important;
+        flex-direction: row !important; /* Mantém a árvore horizontal original convergente */
+        justify-content: space-between !important;
         align-items: stretch !important;
-        gap: 10px !important;
+        gap: 6px !important;
         min-width: 1000px !important;
         max-width: 1020px !important;
         width: 1000px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.85) !important; /* Escala suave excelente de largura */
+        transform: scale(0.8) !important; /* Escala suave excelente de largura */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        height: 430px !important; /* Altura compacta perfeita para caber de ponta a ponta na folha deitada */
+        height: 350px !important; /* ALTURA ULTRA COMPACTA: Garante 100% que caiba em uma única página */
         padding: 0 !important;
-        margin-top: 10px !important;
+        margin-top: 5px !important;
     }
 
     /* Mantém o alinhamento e flexibilidade originais do chaveamento horizontal */
     .bracket-side {
         display: flex !important;
         flex-direction: row !important;
-        gap: 10px !important;
+        gap: 6px !important;
         width: auto !important;
     }
 
@@ -901,16 +902,14 @@ footer {
         width: auto !important;
         gap: 2px !important;
         border-left: none !important;
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .bracket-center { 
-        margin-left: 0 !important; 
+        margin: 0 !important; 
         align-items: center !important;
-        padding: 0 5px !important;
+        padding: 0 2px !important;
         border-left: none !important;
         width: auto !important;
         display: flex !important;
@@ -920,28 +919,29 @@ footer {
 
     .bracket-center h3 {
         color: #000000 !important;
-        font-size: 12pt !important;
-        margin-bottom: 4px !important;
+        font-size: 10pt !important;
+        margin-bottom: 2px !important;
     }
 
-    /* Confrontos Compactados para não estourar verticalmente */
+    /* Cards de Confrontos Ultra Compactos */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
         box-shadow: none !important;
         color: #000000 !important;
-        border-radius: 6px !important;
-        padding: 4px 6px !important;
-        min-width: 130px !important;
-        width: auto !important;
-        max-width: none !important;
+        border-radius: 4px !important;
+        padding: 2px 4px !important; /* Padding ultra reduzido para salvar altura */
+        min-width: 120px !important;
+        width: 120px !important;
+        max-width: 120px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
-        gap: 4px !important;
+        gap: 2px !important;
+        height: 34px !important; /* Altura física fixa super pequena */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -950,33 +950,57 @@ footer {
         background: #ffffff !important;
     }
 
+    .knockout-team-row {
+        height: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 2px !important;
+    }
+
     .knockout-team-row input[type="radio"] {
-        transform: scale(1.0) !important;
+        transform: scale(0.8) !important; /* Rádio menor e discreto */
         accent-color: #000000 !important;
+        margin: 0 !important;
     }
 
     .knockout-team-row input[type="number"] {
-        width: 22px !important;
-        height: 18px !important;
+        width: 16px !important; /* Input super estreito */
+        height: 12px !important;
         border: none !important;
         border-bottom: 1px solid #000000 !important;
         background: transparent !important;
         color: #000000 !important;
         font-weight: bold !important;
-        font-size: 8pt !important;
+        font-size: 7.5pt !important;
         text-align: center !important;
+        padding: 0 !important;
+    }
+
+    .knockout-team-row .team-name {
+        font-size: 7pt !important;
+        font-weight: bold !important;
+        max-width: 50px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .team-flag {
+        width: 14px !important;
+        height: 10px !important;
+        margin-right: 2px !important;
     }
 
     .final-match {
-        transform: scale(1.1) !important;
+        transform: scale(1.05) !important;
         border: 2px solid #000000 !important;
         box-shadow: none !important;
         background: #ffffff !important;
-        max-width: none !important;
     }
 
     .final-match:hover {
-        transform: scale(1.1) !important;
+        transform: scale(1.05) !important;
         box-shadow: none !important;
     }
 
