@@ -318,6 +318,14 @@ function setupListeners() {
             link.click();
         });
     });
+
+    // Imprimir PDF (P&B)
+    const btnPrintPdf = document.getElementById('btn-print-pdf');
+    if (btnPrintPdf) {
+        btnPrintPdf.addEventListener('click', () => {
+            window.print();
+        });
+    }
     // Delegação de eventos para as seleções (abrir estatísticas)
     document.addEventListener('click', (e) => {
         if (e.target.classList.contains('team-name')) {

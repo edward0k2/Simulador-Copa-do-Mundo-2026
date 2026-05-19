@@ -690,3 +690,239 @@ footer {
         font-size: 0.8rem;
     }
 }
+
+/* --- Estilos de Impressão de Alta Performance para PDF Preto e Branco --- */
+@media print {
+    @page {
+        size: landscape;
+        margin: 10mm;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt !important;
+    }
+
+    #app-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+    }
+
+    /* Ocultar elementos desnecessários na impressão */
+    .actions, 
+    .ad-banner, 
+    footer, 
+    .modal, 
+    button, 
+    #btn-undo, 
+    #btn-clear-ko, 
+    .actions-bar {
+        display: none !important;
+    }
+
+    /* Título do Cabeçalho em Preto e Branco */
+    header {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 10px 0 20px 0 !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+    }
+
+    header h1 {
+        color: #000000 !important;
+        font-size: 24pt !important;
+        margin-bottom: 5px !important;
+    }
+
+    header h1 span {
+        color: #555555 !important;
+    }
+
+    header p {
+        color: #333333 !important;
+        font-size: 12pt !important;
+    }
+
+    /* PÁGINA 1: FASE DE GRUPOS */
+    #groups-container {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important; /* 4 colunas na folha Paisagem */
+        gap: 10px !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        width: 100% !important;
+    }
+
+    .group-card {
+        background: #ffffff !important;
+        border: 1px solid #666666 !important;
+        box-shadow: none !important;
+        border-radius: 6px !important;
+        padding: 8px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .group-card h3.group-title {
+        color: #000000 !important;
+        text-shadow: none !important;
+        font-size: 13pt !important;
+        margin-bottom: 8px !important;
+        border-bottom: 1px solid #333333 !important;
+        padding-bottom: 2px !important;
+    }
+
+    table {
+        margin-bottom: 10px !important;
+    }
+
+    th, td {
+        border-bottom: 1px solid #cccccc !important;
+        color: #000000 !important;
+        padding: 4px !important;
+        font-size: 8pt !important;
+    }
+
+    th {
+        color: #333333 !important;
+    }
+
+    td.team-name {
+        text-decoration: none !important;
+        color: #000000 !important;
+    }
+
+    .match {
+        background: #f3f4f6 !important;
+        border: 1px solid #dddddd !important;
+        padding: 4px !important;
+        gap: 4px !important;
+    }
+
+    .match-team .team-name {
+        color: #000000 !important;
+        font-size: 8pt !important;
+    }
+
+    .vs-text {
+        color: #666666 !important;
+        font-size: 7pt !important;
+    }
+
+    /* Estilo de Input de Placar impresso */
+    .score-input {
+        border: none !important;
+        border-bottom: 1px solid #000000 !important;
+        background: transparent !important;
+        color: #000000 !important;
+        font-size: 9pt !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Deixar bandeiras em preto e branco charmoso */
+    .group-flag, .team-flag {
+        filter: grayscale(100%) !important;
+        opacity: 0.7 !important;
+        border: 1px solid #999999 !important;
+    }
+
+    /* PÁGINA 2: MATA-MATA */
+    #knockout-container {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    #knockout-container h2 {
+        color: #000000 !important;
+        font-size: 18pt !important;
+        margin-bottom: 15px !important;
+        text-align: center !important;
+        border-bottom: 2px solid #000000 !important;
+        padding-bottom: 5px !important;
+    }
+
+    #bracket-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        min-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 10px !important;
+        transform: scale(0.9) !important; /* Ligeira redução para garantir acomodação perfeita na folha */
+        transform-origin: top center !important;
+    }
+
+    .bracket-side {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+    }
+
+    .right-side {
+        flex-direction: row-reverse !important;
+    }
+
+    .bracket-col {
+        border-left: none !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        gap: 4px !important;
+    }
+
+    .knockout-match {
+        background: #ffffff !important;
+        border: 1px solid #333333 !important;
+        box-shadow: none !important;
+        border-radius: 6px !important;
+        padding: 6px !important;
+        min-width: 110px !important;
+        transform: none !important;
+    }
+
+    .knockout-match:hover, .knockout-match:focus-within {
+        transform: none !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+    }
+
+    .knockout-team-row input[type="radio"] {
+        transform: scale(1.1) !important;
+        accent-color: #000000 !important;
+    }
+
+    .knockout-team-row input[type="number"] {
+        border: none !important;
+        border-bottom: 1px solid #000000 !important;
+        background: transparent !important;
+        color: #000000 !important;
+        font-size: 9pt !important;
+        width: 25px !important;
+        height: 20px !important;
+    }
+
+    .final-match {
+        border: 2px solid #000000 !important;
+        background: #ffffff !important;
+        box-shadow: none !important;
+        transform: scale(1.05) !important;
+    }
+
+    .final-match:hover {
+        transform: scale(1.05) !important;
+        box-shadow: none !important;
+    }
+}
+
