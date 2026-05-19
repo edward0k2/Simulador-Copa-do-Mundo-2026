@@ -691,11 +691,11 @@ footer {
     }
 }
 
-/* --- Estilos de Impressão de Alta Performance para PDF Preto e Branco --- */
+/* --- Estilos de Impressão de Alta Performance para PDF Preto e Branco (Modo Retrato & Árvore Vertical) --- */
 @media print {
     @page {
-        size: landscape;
-        margin: 8mm; /* Reduzido de 10mm para dar mais espaço vertical */
+        size: portrait;
+        margin: 10mm;
     }
 
     body {
@@ -721,7 +721,7 @@ footer {
     #btn-undo, 
     #btn-clear-ko, 
     .actions-bar,
-    header p { /* Oculta a descrição do cabeçalho para economizar espaço vertical */
+    header p { 
         display: none !important;
     }
 
@@ -731,13 +731,13 @@ footer {
         border: none !important;
         box-shadow: none !important;
         padding: 5px 0 10px 0 !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 15px !important;
         text-align: center !important;
     }
 
     header h1 {
         color: #000000 !important;
-        font-size: 20pt !important;
+        font-size: 22pt !important;
         margin-bottom: 2px !important;
     }
 
@@ -745,11 +745,11 @@ footer {
         color: #555555 !important;
     }
 
-    /* PÁGINA 1: FASE DE GRUPOS */
+    /* PÁGINA 1: FASE DE GRUPOS - 3 COLUNAS (MODO RETRATO) */
     #groups-container {
         display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important; /* 4 colunas na folha Paisagem */
-        gap: 8px !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas para caber na largura do Retrato */
+        gap: 10px !important;
         page-break-after: always !important;
         break-after: page !important;
         width: 100% !important;
@@ -760,7 +760,7 @@ footer {
         border: 1px solid #666666 !important;
         box-shadow: none !important;
         border-radius: 6px !important;
-        padding: 6px !important;
+        padding: 8px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
@@ -769,20 +769,20 @@ footer {
         color: #000000 !important;
         text-shadow: none !important;
         font-size: 11pt !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 6px !important;
         border-bottom: 1px solid #333333 !important;
         padding-bottom: 2px !important;
     }
 
     table {
-        margin-bottom: 6px !important;
+        margin-bottom: 8px !important;
     }
 
     th, td {
         border-bottom: 1px solid #cccccc !important;
         color: #000000 !important;
-        padding: 2px 3px !important;
-        font-size: 7.5pt !important; /* Compactação da fonte */
+        padding: 3px 4px !important;
+        font-size: 8pt !important;
     }
 
     th {
@@ -798,17 +798,17 @@ footer {
         background: #f3f4f6 !important;
         border: 1px solid #dddddd !important;
         padding: 3px !important;
-        gap: 3px !important;
+        gap: 4px !important;
     }
 
     .match-team .team-name {
         color: #000000 !important;
-        font-size: 7.5pt !important;
+        font-size: 8pt !important;
     }
 
     .vs-text {
         color: #666666 !important;
-        font-size: 6.5pt !important;
+        font-size: 7pt !important;
     }
 
     /* Estilo de Input de Placar impresso */
@@ -822,58 +822,106 @@ footer {
         height: 18px !important;
     }
 
-    /* Deixar bandeiras em preto e branco charmoso */
+    /* Bandeiras Grayscale */
     .group-flag, .team-flag {
         filter: grayscale(100%) !important;
         opacity: 0.7 !important;
         border: 1px solid #999999 !important;
     }
 
-    /* PÁGINA 2: MATA-MATA (Removido page-break-before redundante para evitar páginas em branco) */
+    /* PÁGINA 2: MATA-MATA EM ESTRUTURA DE ÁRVORE VERTICAL (ESTILO MOBILE OTIMIZADO) */
     #knockout-container {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        page-break-before: always !important;
+        break-before: page !important;
         margin-top: 0 !important;
         padding: 0 !important;
         width: 100% !important;
-        overflow: hidden !important;
+        overflow: visible !important;
     }
 
     #knockout-container h2 {
         color: #000000 !important;
-        font-size: 15pt !important;
-        margin-bottom: 8px !important;
+        font-size: 16pt !important;
+        margin-bottom: 15px !important;
         text-align: center !important;
+        border-bottom: 2px solid #000000 !important;
+        padding-bottom: 5px !important;
     }
 
     #bracket-grid {
         display: flex !important;
-        justify-content: center !important;
-        align-items: stretch !important;
+        flex-direction: column !important; /* Árvore flui verticalmente de cima para baixo */
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        min-width: 100% !important;
+        width: 100% !important;
         gap: 15px !important;
-        min-width: 1000px !important;
-        max-width: 1050px !important;
-        width: 1000px !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        transform: scale(0.58) !important; /* Escala calibrada em 0.58 para acomodar perfeitamente na margem inferior */
-        transform-origin: top center !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        height: 410px !important; /* Altura reduzida para conter a escala sem estourar a página */
+        padding: 0 !important;
+        margin-top: 10px !important;
+        transform: none !important; /* Sem necessidade de escalas artificiais que embaçam */
+        height: auto !important; /* Altura natural para fluir pelo papel */
     }
 
-    /* Manter a flexibilidade original das colunas */
     .bracket-side {
         display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
         gap: 15px !important;
     }
 
+    .left-side {
+        flex-direction: column !important;
+    }
+
+    .right-side {
+        flex-direction: column-reverse !important;
+    }
+
+    /* As colunas do chaveamento se tornam ramificações verticais tracejadas */
     .bracket-col {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-evenly !important;
-        gap: 2px !important;
+        width: 100% !important;
+        gap: 12px !important;
+        border-left: 2px dashed #333333 !important; /* Ramificação da árvore */
+        padding-left: 15px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    /* Indentação das rodadas na árvore vertical */
+    .left-side .bracket-col:nth-child(1), .right-side .bracket-col:nth-child(1) { 
+        margin-left: 0px !important; 
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+    .left-side .bracket-col:nth-child(2), .right-side .bracket-col:nth-child(2) { 
+        margin-left: 20px !important; 
+    }
+    .left-side .bracket-col:nth-child(3), .right-side .bracket-col:nth-child(3) { 
+        margin-left: 40px !important; 
+    }
+    .left-side .bracket-col:nth-child(4), .right-side .bracket-col:nth-child(4) { 
+        margin-left: 60px !important; 
+    }
+    
+    .bracket-center { 
+        margin-left: 80px !important; 
+        align-items: flex-start !important;
+        padding: 10px 0 !important;
+        border-left: 2px dashed #000000 !important;
+        padding-left: 15px !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .bracket-center h3 {
+        color: #000000 !important;
+        font-size: 14pt !important;
+        margin-bottom: 8px !important;
     }
 
     .knockout-match {
@@ -883,8 +931,11 @@ footer {
         color: #000000 !important;
         border-radius: 8px !important;
         padding: 6px 10px !important;
-        min-width: 130px !important;
+        width: 100% !important;
+        max-width: 250px !important; /* Limite de largura para ficar elegante na folha */
         transform: none !important;
+        page-break-inside: avoid !important; /* Impede cortes no meio de um confronto */
+        break-inside: avoid !important;
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -912,11 +963,12 @@ footer {
         border: 2px solid #000000 !important;
         background: #ffffff !important;
         box-shadow: none !important;
-        transform: scale(1.05) !important;
+        max-width: 270px !important;
+        transform: none !important;
     }
 
     .final-match:hover {
-        transform: scale(1.05) !important;
+        transform: none !important;
         box-shadow: none !important;
     }
 }
