@@ -874,7 +874,7 @@ footer {
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        height: 560px !important; /* Altura ampliada que afasta verticalmente os confrontos de forma majestosa */
+        height: 620px !important; /* ALTURA MÁXIMA DA FOLHA: Ocupa de cima a baixo toda a vertical do papel Paisagem! */
         padding: 0 !important;
         margin-top: 10px !important;
     }
@@ -885,6 +885,7 @@ footer {
         flex-direction: row !important;
         gap: 15px !important; 
         width: auto !important;
+        height: 100% !important; /* CRUCIAL: Garante que as laterais herdem a altura inteira do grid pai! */
     }
 
     .left-side {
@@ -898,12 +899,13 @@ footer {
     .bracket-col {
         display: flex !important;
         flex-direction: column !important;
-        justify-content: space-evenly !important;
+        justify-content: space-evenly !important; /* Distribui os confrontos de cima a baixo preenchendo toda a altura! */
         width: auto !important;
         gap: 2px !important;
         border-left: none !important;
         padding: 0 !important;
         margin: 0 !important;
+        height: 100% !important; /* CRUCIAL: Distribui os cards por toda a vertical da folha! */
     }
 
     .bracket-center { 
@@ -915,6 +917,7 @@ footer {
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
+        height: 100% !important; /* CRUCIAL: Centraliza a Final de cima a baixo! */
     }
 
     .bracket-center h3 {
