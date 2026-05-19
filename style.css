@@ -864,13 +864,13 @@ footer {
         flex-direction: row !important; /* Mantém a árvore horizontal original convergente */
         justify-content: space-between !important;
         align-items: stretch !important;
-        gap: 15px !important; /* Espaçamento horizontal confortável */
-        min-width: 1040px !important;
-        max-width: 1060px !important;
-        width: 1040px !important;
+        gap: 20px !important; /* Excelente espaçamento horizontal entre as fases */
+        min-width: 900px !important;
+        max-width: 920px !important;
+        width: 900px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.92) !important; /* Escala perfeita para aproveitar a largura total da folha */
+        transform: scale(0.95) !important; /* Escala perfeita para aproveitar a largura total da folha */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -883,7 +883,7 @@ footer {
     .bracket-side {
         display: flex !important;
         flex-direction: row !important;
-        gap: 15px !important; 
+        gap: 20px !important; /* Excelente espaçamento horizontal */
         width: auto !important;
         height: 100% !important; /* CRUCIAL: Garante que as laterais herdem a altura inteira do grid pai! */
     }
@@ -926,7 +926,7 @@ footer {
         margin-bottom: 4px !important;
     }
 
-    /* Cards de Confrontos Confortáveis - Modelo 1 (Caixas de Colagem de Figurinhas) */
+    /* Cards de Confrontos Confortáveis e Estreitos (Evita 100% de colisões laterais) */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
@@ -934,9 +934,9 @@ footer {
         color: #000000 !important;
         border-radius: 6px !important;
         padding: 4px 6px !important; 
-        min-width: 126px !important; /* Largura perfeita para acomodar caixas de colagem e placares */
-        width: 126px !important;
-        max-width: 126px !important;
+        min-width: 76px !important; /* Largura estreita cirúrgica que impede colisões */
+        width: 76px !important;
+        max-width: 76px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
@@ -944,7 +944,7 @@ footer {
         flex-direction: column !important;
         justify-content: space-between !important;
         gap: 4px !important;
-        height: 58px !important; /* Altura ideal para o Modelo 1 de colagem */
+        height: 52px !important; /* Altura ideal compacta */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -954,7 +954,7 @@ footer {
     }
 
     .knockout-team-row {
-        height: 24px !important;
+        height: 20px !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
@@ -962,39 +962,46 @@ footer {
         width: 100% !important;
     }
 
-    /* Caixa Branca de Colagem do Modelo 1 via Pseudo-elemento (Garante 100% de precisão e caixa vazia em qualquer navegador) */
-    .knockout-team-row::before {
-        content: "" !important;
-        width: 32px !important;
-        height: 22px !important;
+    .knockout-team-row label {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0 !important;
+        width: auto !important;
+    }
+
+    .knockout-team-row input[type="radio"] {
+        display: none !important; /* Oculta os botões radio na impressão */
+    }
+
+    /* Bandeiras Impressas de Volta como Base de Colagem (28x18px) */
+    .team-flag {
+        width: 28px !important;
+        height: 18px !important;
         border: 1px solid #000000 !important;
         background: #ffffff !important;
-        border-radius: 3px !important;
         display: inline-block !important;
+        border-radius: 2px !important;
         box-shadow: none !important;
+        margin: 0 !important;
+        filter: grayscale(100%) !important; /* P&B econômico elegante */
+        opacity: 0.95 !important;
     }
 
-    /* Oculta completamente a sigla, rádio e a bandeira original em degradê (Garante que a árvore fique sem siglas e ultra espaçosa!) */
-    .knockout-team-row label {
-        display: none !important;
-    }
-
-    /* Oculta as classes individuais na impressão */
-    .knockout-team-row input[type="radio"],
-    .team-flag,
+    /* Oculta as siglas/nomes na árvore eliminatória para liberar espaço horizontal */
     .knockout-team-row .team-name {
         display: none !important;
     }
 
-    /* Caixa de Placar Elegante do Modelo 1 */
+    /* Caixa de Placar Elegante */
     .knockout-team-row input[type="number"] {
-        width: 22px !important;
-        height: 20px !important;
+        width: 20px !important;
+        height: 18px !important;
         border: 1px solid #000000 !important;
         background: #ffffff !important;
         color: #000000 !important;
         font-weight: bold !important;
-        font-size: 10pt !important;
+        font-size: 9pt !important;
         text-align: center !important;
         border-radius: 3px !important;
         padding: 0 !important;
