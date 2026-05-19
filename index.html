@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- 
+        GOOGLE ADSENSE - SCRIPT DE ATIVAÇÃO GLOBAL
+        Substitua o 'ca-pub-SEU_ID_DE_EDITOR' pelo seu ID de editor real fornecido pelo Google AdSense.
+    -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SEU_ID_DE_EDITOR" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app-container">
@@ -78,6 +84,10 @@
         
         <footer>
             <p>&copy; 2026 Simulador da Copa. Desenvolvido por <a href="https://www.linkedin.com/in/jesus-eduardo-pereira/" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">Jesus Eduardo</a>.</p>
+            <div style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: center; gap: 10px;">
+                <a href="#" id="btn-open-privacy" style="color: var(--primary); text-decoration: none; font-weight: 500;">Política de Privacidade</a> | 
+                <a href="#" id="btn-open-terms" style="color: var(--primary); text-decoration: none; font-weight: 500;">Termos de Uso</a>
+            </div>
             <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
                 <a href="https://github.com/edward0k2" target="_blank" style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
@@ -121,6 +131,21 @@
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">*Os dados reais podem ser integrados via API (Ex: API-Football) futuramente.</p>
             </div>
             <button id="btn-close-team-modal" class="btn btn-close">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Políticas de Privacidade e Termos de Uso (Crítico para Aprovação do Google AdSense) -->
+    <div id="privacy-terms-modal" class="modal hidden">
+        <div class="modal-content glass" style="max-width: 700px; max-height: 80vh; overflow-y: auto; text-align: left; padding: 30px;">
+            <h2 id="policy-modal-title" style="color: var(--primary); margin-bottom: 20px;">Política de Privacidade</h2>
+            
+            <div id="policy-modal-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text);">
+                <!-- O conteúdo dinâmico da política ou termos será inserido aqui pelo JS -->
+            </div>
+            
+            <div class="actions" style="margin-top: 25px; display: flex; justify-content: flex-end;">
+                <button id="btn-close-policy-modal" class="btn btn-close" style="margin: 0;">Fechar</button>
+            </div>
         </div>
     </div>
 

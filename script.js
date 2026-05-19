@@ -330,6 +330,38 @@ function setupListeners() {
     document.getElementById('btn-close-team-modal').addEventListener('click', () => {
         teamStatsModal.classList.add('hidden');
     });
+
+    // --- Lógica de Políticas de Privacidade e Termos de Uso (AdSense) ---
+    const btnOpenPrivacy = document.getElementById('btn-open-privacy');
+    const btnOpenTerms = document.getElementById('btn-open-terms');
+    const privacyTermsModal = document.getElementById('privacy-terms-modal');
+    const policyModalTitle = document.getElementById('policy-modal-title');
+    const policyModalContent = document.getElementById('policy-modal-content');
+    const btnClosePolicyModal = document.getElementById('btn-close-policy-modal');
+
+    if (btnOpenPrivacy && privacyTermsModal) {
+        btnOpenPrivacy.addEventListener('click', (e) => {
+            e.preventDefault();
+            policyModalTitle.textContent = "Política de Privacidade";
+            policyModalContent.innerHTML = PRIVACY_POLICY_HTML;
+            privacyTermsModal.classList.remove('hidden');
+        });
+    }
+
+    if (btnOpenTerms && privacyTermsModal) {
+        btnOpenTerms.addEventListener('click', (e) => {
+            e.preventDefault();
+            policyModalTitle.textContent = "Termos de Uso";
+            policyModalContent.innerHTML = TERMS_OF_USE_HTML;
+            privacyTermsModal.classList.remove('hidden');
+        });
+    }
+
+    if (btnClosePolicyModal && privacyTermsModal) {
+        btnClosePolicyModal.addEventListener('click', () => {
+            privacyTermsModal.classList.add('hidden');
+        });
+    }
 }
 
 // ---- Lógica de Estatísticas (Simulação) ----
@@ -571,6 +603,41 @@ function loadStateFromURL() {
         }
     }
 }
+
+// --- Textos de Privacidade e Termos (Necessários para aprovação Google AdSense) ---
+const PRIVACY_POLICY_HTML = `
+    <p>A sua privacidade é de extrema importância para nós. Esta política de privacidade descreve quais tipos de informações são recebidos e coletados pelo <strong>Simulador da Copa do Mundo 2026</strong> e como essas informações são utilizadas.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">1. Coleta de Informações</h3>
+    <p>Este site não coleta informações de identificação pessoal (como nome, e-mail ou telefone). O simulador funciona inteiramente de forma local no seu próprio navegador utilizando recursos modernos como o <strong>localStorage</strong> para salvar o progresso dos seus palpites.</p>
+    <p>As simulações compartilhadas são codificadas na própria URL (link) que você gera. Não armazenamos seus palpites em bancos de dados externos.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">2. Cookies e Web Beacons</h3>
+    <p>Nós utilizamos cookies para guardar informações sobre as preferências dos visitantes e registrar informações específicas sobre quais páginas o usuário acessa ou visita, de forma a personalizar o conteúdo da página do navegador.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">3. Google AdSense e Cookies de Terceiros</h3>
+    <p>Como fornecedor terceirizado, o <strong>Google</strong> utiliza cookies para exibir anúncios neste site. O uso do cookie DoubleClick pelo Google permite que ele exiba anúncios com base nas visitas que você faz a este e a outros sites na internet.</p>
+    <p>Os usuários podem desativar o uso do cookie DoubleClick visitando a Política de Privacidade da rede de anúncios e conteúdo do Google.</p>
+    <p>Nós não temos controle sobre os cookies que são utilizados por anunciantes terceiros.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">4. Consentimento e LGPD</h3>
+    <p>Ao utilizar o nosso site, você consente com a nossa política de privacidade. O site está em conformidade com as diretrizes da Lei Geral de Proteção de Dados (LGPD) do Brasil.</p>
+`;
+
+const TERMS_OF_USE_HTML = `
+    <p>Ao acessar o site <strong>Simulador da Copa do Mundo 2026</strong>, você concorda em cumprir estes termos de uso, todas as leis e regulamentos aplicáveis e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">1. Uso de Licença</h3>
+    <p>O Simulador da Copa do Mundo 2026 é uma ferramenta gratuita de entretenimento para uso pessoal e não comercial. É concedida permissão para simular os jogos, baixar as imagens dos palpites gerados e compartilhar os links criados pelo site.</p>
+    <p>Esta licença não permite a modificação, revenda ou distribuição do código-fonte ou dos elementos gráficos proprietários sem a devida autorização.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">2. Isenção de Responsabilidade</h3>
+    <p>Os materiais no site são fornecidos "como estão". O simulador não oferece garantias, expressas ou implícitas, e por este meio isenta e nega todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual.</p>
+    <p>As estatísticas das seleções no modal de informações são baseadas em dados simulados e estimativas, servindo apenas para entretenimento.</p>
+    
+    <h3 style="margin-top:20px; color:var(--primary); font-size:1.15rem;">3. Limitações</h3>
+    <p>Em nenhum caso o Simulador ou seus desenvolvedores serão responsáveis por quaisquer danos decorrentes do uso ou da incapacidade de usar as simulações no site.</p>
+`;
 
 // Inicia a aplicação
 init();
