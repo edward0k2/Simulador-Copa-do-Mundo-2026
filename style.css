@@ -176,7 +176,7 @@ header p {
     white-space: nowrap;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .promo-ad {
         flex-direction: column;
         padding: 25px 15px 15px;
@@ -549,7 +549,7 @@ footer {
 }
 
 /* Árvore Vertical Indentada (Estilo Pastas) para Mobile */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     #knockout-container {
         overflow-x: hidden;
         padding: 5px;
@@ -649,7 +649,7 @@ footer {
 }
 
 /* Responsividade Mobile */
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
     header {
         padding: 20px 10px;
     }
