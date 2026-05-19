@@ -962,39 +962,28 @@ footer {
         width: 100% !important;
     }
 
-    .knockout-team-row label {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        gap: 6px !important;
-        width: auto !important;
-    }
-
-    .knockout-team-row input[type="radio"] {
-        display: none !important; /* Oculta os botões radio na impressão */
-    }
-
-    /* Transformando a bandeira original em uma Caixa Branca Vazia para colar figurinha física (Modelo 1) */
-    .team-flag {
+    /* Caixa Branca de Colagem do Modelo 1 via Pseudo-elemento (Garante 100% de precisão e caixa vazia em qualquer navegador) */
+    .knockout-team-row::before {
+        content: "" !important;
         width: 32px !important;
         height: 22px !important;
         border: 1px solid #000000 !important;
         background: #ffffff !important;
-        content: "" !important; /* Hack Chromium: descarta imagem e exibe caixa branca de colagem */
-        display: inline-block !important;
         border-radius: 3px !important;
+        display: inline-block !important;
         box-shadow: none !important;
-        margin: 0 !important;
     }
 
+    /* Oculta completamente a sigla, rádio e a bandeira original em degradê (Garante que a árvore fique sem siglas e ultra espaçosa!) */
+    .knockout-team-row label {
+        display: none !important;
+    }
+
+    /* Oculta as classes individuais na impressão */
+    .knockout-team-row input[type="radio"],
+    .team-flag,
     .knockout-team-row .team-name {
-        font-size: 8.5pt !important;
-        font-weight: bold !important;
-        color: #000000 !important;
-        max-width: 50px !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
+        display: none !important;
     }
 
     /* Caixa de Placar Elegante do Modelo 1 */
