@@ -926,25 +926,25 @@ footer {
         margin-bottom: 4px !important;
     }
 
-    /* Cards de Confrontos Elegantes que NUNCA se sobrepõem */
+    /* Cards de Confrontos Confortáveis - Modelo 1 (Caixas de Colagem de Figurinhas) */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
         box-shadow: none !important;
         color: #000000 !important;
         border-radius: 6px !important;
-        padding: 3px 5px !important; 
-        min-width: 122px !important; /* Largura perfeita para não colidir com outras colunas */
-        width: 122px !important;
-        max-width: 122px !important;
+        padding: 4px 6px !important; 
+        min-width: 126px !important; /* Largura perfeita para acomodar caixas de colagem e placares */
+        width: 126px !important;
+        max-width: 126px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
-        gap: 3px !important;
-        height: 44px !important; /* Altura ideal de grande legibilidade */
+        justify-content: space-between !important;
+        gap: 4px !important;
+        height: 58px !important; /* Altura ideal para o Modelo 1 de colagem */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -954,46 +954,61 @@ footer {
     }
 
     .knockout-team-row {
-        height: 18px !important;
+        height: 24px !important;
         display: flex !important;
+        flex-direction: row !important;
         align-items: center !important;
         justify-content: space-between !important;
-        gap: 3px !important;
+        width: 100% !important;
+    }
+
+    .knockout-team-row label {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 6px !important;
+        width: auto !important;
     }
 
     .knockout-team-row input[type="radio"] {
-        transform: scale(0.95) !important;
-        accent-color: #000000 !important;
+        display: none !important; /* Oculta os botões radio na impressão */
+    }
+
+    /* Transformando a bandeira original em uma Caixa Branca Vazia para colar figurinha física (Modelo 1) */
+    .team-flag {
+        width: 32px !important;
+        height: 22px !important;
+        border: 1px solid #000000 !important;
+        background: #ffffff !important;
+        content: "" !important; /* Hack Chromium: descarta imagem e exibe caixa branca de colagem */
+        display: inline-block !important;
+        border-radius: 3px !important;
+        box-shadow: none !important;
         margin: 0 !important;
     }
 
-    .knockout-team-row input[type="number"] {
-        width: 20px !important;
-        height: 14px !important;
-        border: none !important;
-        border-bottom: 1px solid #000000 !important;
-        background: transparent !important;
-        color: #000000 !important;
-        font-weight: bold !important;
-        font-size: 8pt !important;
-        text-align: center !important;
-        padding: 0 !important;
-    }
-
     .knockout-team-row .team-name {
-        font-size: 8pt !important;
+        font-size: 8.5pt !important;
         font-weight: bold !important;
-        max-width: 60px !important;
+        color: #000000 !important;
+        max-width: 50px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
 
-    .team-flag {
-        width: 16px !important;
-        height: 11px !important;
-        margin-right: 3px !important;
-        border: 1px solid #999999 !important;
+    /* Caixa de Placar Elegante do Modelo 1 */
+    .knockout-team-row input[type="number"] {
+        width: 22px !important;
+        height: 20px !important;
+        border: 1px solid #000000 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+        font-size: 10pt !important;
+        text-align: center !important;
+        border-radius: 3px !important;
+        padding: 0 !important;
     }
 
     .final-match {
@@ -1038,18 +1053,19 @@ footer {
 
     #stickers-grid {
         display: grid !important;
-        grid-template-columns: repeat(10, 1fr) !important; /* 10 figurinhas por linha em Paisagem */
-        gap: 6px !important;
+        grid-template-columns: repeat(18, 1fr) !important; /* 18 figurinhas por linha para caber muitas em Paisagem */
+        gap: 8px !important;
         width: 100% !important;
+        justify-content: center !important;
     }
 
     .sticker-item {
         border: 1px dashed #555555 !important; /* Linha de corte tracejada P&B */
-        padding: 2px !important;
-        width: 70px !important; /* Um pouco mais largo para acomodar a bandeira cheia */
-        height: 52px !important;
+        padding: 1px !important;
+        width: 36px !important; /* Tamanho de corte perfeitamente dimensionado */
+        height: 26px !important;
         background: #ffffff !important;
-        border-radius: 4px !important;
+        border-radius: 3px !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         display: flex !important;
@@ -1058,13 +1074,13 @@ footer {
     }
 
     .sticker-flag {
-        width: 64px !important; /* Preenche quase todo o espaço do card pontilhado */
-        height: 46px !important;
+        width: 32px !important; /* Tamanho exato correspondente à caixa de colagem (32x22px) */
+        height: 22px !important;
         border: 1px solid #000000 !important;
-        object-fit: cover !important; /* Para a bandeira preencher com máxima qualidade e sem distorcer */
+        object-fit: cover !important; /* Mantém a proporção exata da bandeira sem distorcer */
         margin: 0 !important;
         filter: grayscale(100%) !important; /* Tudo em P&B economizador de tinta */
-        opacity: 0.8 !important;
+        opacity: 0.85 !important;
     }
 }
 }
