@@ -1,46 +1,46 @@
 const worldCupGroups = {
-  A: ["Estados Unidos", "Alemanha", "Japão", "Austrália"],
-  B: ["México", "Holanda", "Senegal", "Coreia do Sul"],
-  C: ["Canadá", "França", "Egito", "Nova Zelândia"],
-  D: ["Brasil", "Croácia", "Nigéria", "Costa Rica"],
-  E: ["Argentina", "Itália", "Camarões", "Irã"],
-  F: ["Espanha", "Uruguai", "Marrocos", "Arábia Saudita"],
-  G: ["Inglaterra", "Colômbia", "Costa do Marfim", "Catar"],
-  H: ["Portugal", "Equador", "Gana", "Emirados Árabes"],
-  I: ["Bélgica", "Chile", "Argélia", "Uzbequistão"],
-  J: ["Suíça", "Peru", "Tunísia", "Iraque"],
-  K: ["Dinamarca", "Suécia", "Mali", "Honduras"],
-  L: ["Sérvia", "Polônia", "África do Sul", "Panamá"],
+  A: ["México", "África do Sul", "Coreia do Sul", "República Tcheca"],
+  B: ["Canadá", "Bósnia e Herzegovina", "Catar", "Suíça"],
+  C: ["Brasil", "Marrocos", "Haiti", "Escócia"],
+  D: ["Estados Unidos", "Paraguai", "Austrália", "Turquia"],
+  E: ["Alemanha", "Curaçao", "Costa do Marfim", "Equador"],
+  F: ["Holanda", "Japão", "Suécia", "Tunísia"],
+  G: ["Bélgica", "Egito", "Irã", "Nova Zelândia"],
+  H: ["Espanha", "Cabo Verde", "Arábia Saudita", "Uruguai"],
+  I: ["França", "Senegal", "Iraque", "Noruega"],
+  J: ["Argentina", "Argélia", "Áustria", "Jordânia"],
+  K: ["Portugal", "Congo", "Uzbequistão", "Colômbia"],
+  L: ["Inglaterra", "Croácia", "Gana", "Panamá"]
 };
 
 const countryCodes = {
-    "Estados Unidos": "us", "Alemanha": "de", "Japão": "jp", "Austrália": "au",
-    "México": "mx", "Holanda": "nl", "Senegal": "sn", "Coreia do Sul": "kr",
-    "Canadá": "ca", "França": "fr", "Egito": "eg", "Nova Zelândia": "nz",
-    "Brasil": "br", "Croácia": "hr", "Nigéria": "ng", "Costa Rica": "cr",
-    "Argentina": "ar", "Itália": "it", "Camarões": "cm", "Irã": "ir",
-    "Espanha": "es", "Uruguai": "uy", "Marrocos": "ma", "Arábia Saudita": "sa",
-    "Inglaterra": "gb-eng", "Colômbia": "co", "Costa do Marfim": "ci", "Catar": "qa",
-    "Portugal": "pt", "Equador": "ec", "Gana": "gh", "Emirados Árabes": "ae",
-    "Bélgica": "be", "Chile": "cl", "Argélia": "dz", "Uzbequistão": "uz",
-    "Suíça": "ch", "Peru": "pe", "Tunísia": "tn", "Iraque": "iq",
-    "Dinamarca": "dk", "Suécia": "se", "Mali": "ml", "Honduras": "hn",
-    "Sérvia": "rs", "Polônia": "pl", "África do Sul": "za", "Panamá": "pa"
+    "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "República Tcheca": "cz",
+    "Canadá": "ca", "Bósnia e Herzegovina": "ba", "Catar": "qa", "Suíça": "ch",
+    "Brasil": "br", "Marrocos": "ma", "Haiti": "ht", "Escócia": "gb-sct",
+    "Estados Unidos": "us", "Paraguai": "py", "Austrália": "au", "Turquia": "tr",
+    "Alemanha": "de", "Curaçao": "cw", "Costa do Marfim": "ci", "Equador": "ec",
+    "Holanda": "nl", "Japão": "jp", "Suécia": "se", "Tunísia": "tn",
+    "Bélgica": "be", "Egito": "eg", "Irã": "ir", "Nova Zelândia": "nz",
+    "Espanha": "es", "Cabo Verde": "cv", "Arábia Saudita": "sa", "Uruguai": "uy",
+    "França": "fr", "Senegal": "sn", "Iraque": "iq", "Noruega": "no",
+    "Argentina": "ar", "Argélia": "dz", "Áustria": "at", "Jordânia": "jo",
+    "Portugal": "pt", "Congo": "cd", "Uzbequistão": "uz", "Colômbia": "co",
+    "Inglaterra": "gb-eng", "Croácia": "hr", "Gana": "gh", "Panamá": "pa"
 };
 
 const teamCodes = {
-    "Estados Unidos": "USA", "Alemanha": "GER", "Japão": "JPN", "Austrália": "AUS",
-    "México": "MEX", "Holanda": "NED", "Senegal": "SEN", "Coreia do Sul": "KOR",
-    "Canadá": "CAN", "França": "FRA", "Egito": "EGY", "Nova Zelândia": "NZL",
-    "Brasil": "BRA", "Croácia": "CRO", "Nigéria": "NGA", "Costa Rica": "CRC",
-    "Argentina": "ARG", "Itália": "ITA", "Camarões": "CMR", "Irã": "IRN",
-    "Espanha": "ESP", "Uruguai": "URU", "Marrocos": "MAR", "Arábia Saudita": "KSA",
-    "Inglaterra": "ENG", "Colômbia": "COL", "Costa do Marfim": "CIV", "Catar": "QAT",
-    "Portugal": "POR", "Equador": "ECU", "Gana": "GHA", "Emirados Árabes": "UAE",
-    "Bélgica": "BEL", "Chile": "CHI", "Argélia": "ALG", "Uzbequistão": "UZB",
-    "Suíça": "SUI", "Peru": "PER", "Tunísia": "TUN", "Iraque": "IRQ",
-    "Dinamarca": "DEN", "Suécia": "SWE", "Mali": "MLI", "Honduras": "HON",
-    "Sérvia": "SRB", "Polônia": "POL", "África do Sul": "RSA", "Panamá": "PAN"
+    "México": "MEX", "África do Sul": "RSA", "Coreia do Sul": "KOR", "República Tcheca": "CZE",
+    "Canadá": "CAN", "Bósnia e Herzegovina": "BIH", "Catar": "QAT", "Suíça": "SUI",
+    "Brasil": "BRA", "Marrocos": "MAR", "Haiti": "HAI", "Escócia": "SCO",
+    "Estados Unidos": "USA", "Paraguai": "PAR", "Austrália": "AUS", "Turquia": "TUR",
+    "Alemanha": "GER", "Curaçao": "CUW", "Costa do Marfim": "CIV", "Equador": "ECU",
+    "Holanda": "NED", "Japão": "JPN", "Suécia": "SWE", "Tunísia": "TUN",
+    "Bélgica": "BEL", "Egito": "EGY", "Irã": "IRN", "Nova Zelândia": "NZL",
+    "Espanha": "ESP", "Cabo Verde": "CPV", "Arábia Saudita": "KSA", "Uruguai": "URU",
+    "França": "FRA", "Senegal": "SEN", "Iraque": "IRQ", "Noruega": "NOR",
+    "Argentina": "ARG", "Argélia": "ALG", "Áustria": "AUT", "Jordânia": "JOR",
+    "Portugal": "POR", "Congo": "COD", "Uzbequistão": "UZB", "Colômbia": "COL",
+    "Inglaterra": "ENG", "Croácia": "CRO", "Gana": "GHA", "Panamá": "PAN"
 };
 
 function getFlagURL(teamName) {
