@@ -695,17 +695,22 @@ footer {
     display: none;
 }
 
-/* --- Estilos de Impressão de Alta Performance para PDF Preto e Branco (Modo Retrato & Árvore Vertical) --- */
+/* --- Estilos de Impressão de Alta Fidelidade (Colorido, Modo Paisagem & Horizontal Idêntico à Tela) --- */
 @media print {
     @page {
-        size: portrait;
+        size: landscape;
         margin: 10mm;
     }
 
+    /* Força o navegador a renderizar as cores e fundos originais na impressão */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
     body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        font-size: 10pt !important;
+        background: linear-gradient(135deg, #009B3A 0%, #FFDF00 50%, #002776 100%) !important;
+        color: #ffffff !important;
     }
 
     #app-container {
@@ -713,7 +718,7 @@ footer {
         width: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
-        background: #ffffff !important;
+        background: transparent !important;
     }
 
     /* Ocultar elementos desnecessários na impressão */
@@ -729,30 +734,32 @@ footer {
         display: none !important;
     }
 
-    /* Título do Cabeçalho em Preto e Branco */
+    /* Cabeçalho do Simulador */
     header {
-        background: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 5px 0 10px 0 !important;
-        margin-bottom: 15px !important;
+        background: rgba(0, 155, 58, 0.7) !important;
+        backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+        border-radius: 20px !important;
+        padding: 15px 20px !important;
+        margin-bottom: 20px !important;
         text-align: center !important;
     }
 
     header h1 {
-        color: #000000 !important;
-        font-size: 22pt !important;
+        color: #FFDF00 !important;
+        font-size: 24pt !important;
         margin-bottom: 2px !important;
     }
 
     header h1 span {
-        color: #555555 !important;
+        color: #ffffff !important;
     }
 
-    /* PÁGINA 1: FASE DE GRUPOS - 3 COLUNAS (MODO RETRATO) */
+    /* PÁGINA 1: FASE DE GRUPOS - 4 COLUNAS EM PAISAGEM COLORIDO */
     #groups-container {
         display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important; /* 3 colunas para caber na largura do Retrato */
+        grid-template-columns: repeat(4, 1fr) !important; /* 4 colunas na folha Paisagem */
         gap: 10px !important;
         page-break-after: always !important;
         break-after: page !important;
@@ -760,283 +767,287 @@ footer {
     }
 
     .group-card {
-        background: #ffffff !important;
-        border: 1px solid #666666 !important;
-        box-shadow: none !important;
-        border-radius: 6px !important;
-        padding: 8px !important;
+        background: rgba(0, 155, 58, 0.7) !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        border-radius: 12px !important;
+        padding: 10px !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
     }
 
     .group-card h3.group-title {
-        color: #000000 !important;
-        text-shadow: none !important;
-        font-size: 11pt !important;
-        margin-bottom: 6px !important;
-        border-bottom: 1px solid #333333 !important;
-        padding-bottom: 2px !important;
+        color: #002776 !important;
+        text-shadow: 
+            -1px -1px 0 #FFDF00,  
+             1px -1px 0 #FFDF00,
+            -1px  1px 0 #FFDF00,
+             1px  1px 0 #FFDF00 !important;
+        font-size: 13pt !important;
+        margin-bottom: 8px !important;
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
     }
 
     table {
-        margin-bottom: 8px !important;
+        margin-bottom: 10px !important;
     }
 
     th, td {
-        border-bottom: 1px solid #cccccc !important;
-        color: #000000 !important;
-        padding: 3px 4px !important;
+        border-bottom: 1px solid rgba(255, 223, 0, 0.2) !important;
+        color: #ffffff !important;
+        padding: 4px !important;
         font-size: 8pt !important;
     }
 
     th {
-        color: #333333 !important;
+        color: #e2e8f0 !important;
     }
 
     td.team-name {
-        text-decoration: none !important;
-        color: #000000 !important;
+        text-decoration: underline !important;
+        text-decoration-color: transparent !important;
+        color: #ffffff !important;
     }
 
     .match {
-        background: #f3f4f6 !important;
-        border: 1px solid #dddddd !important;
-        padding: 3px !important;
+        background: rgba(0, 0, 0, 0.2) !important;
+        border: none !important;
+        padding: 4px !important;
         gap: 4px !important;
+        border-radius: 8px !important;
     }
 
     .match-team .team-name {
-        color: #000000 !important;
+        color: #ffffff !important;
         font-size: 8pt !important;
     }
 
     .vs-text {
-        color: #666666 !important;
+        color: #e2e8f0 !important;
         font-size: 7pt !important;
     }
 
     /* Estilo de Input de Placar impresso */
     .score-input {
-        border: none !important;
-        border-bottom: 1px solid #000000 !important;
-        background: transparent !important;
-        color: #000000 !important;
-        font-size: 8pt !important;
-        width: 18px !important;
-        height: 18px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        color: white !important;
+        font-size: 9pt !important;
+        width: 24px !important;
+        height: 22px !important;
+        border-radius: 5px !important;
     }
 
-    /* Bandeiras Grayscale */
+    /* Bandeiras Coloridas no Simulador */
     .group-flag, .team-flag {
-        filter: grayscale(100%) !important;
-        opacity: 0.7 !important;
-        border: 1px solid #999999 !important;
+        filter: none !important;
+        opacity: 1.0 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+        border: none !important;
     }
 
-    /* PÁGINA 2: MATA-MATA EM ESTRUTURA DE ÁRVORE VERTICAL (ESTILO MOBILE OTIMIZADO) */
+    /* PÁGINA 2: MATA-MATA HORIZONTAL IDÊNTICO À TELA (PRESERVADO FLEXBOX ORIGINAL E CORES) */
     #knockout-container {
         page-break-before: always !important;
         break-before: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
         margin-top: 0 !important;
         padding: 0 !important;
         width: 100% !important;
         overflow: visible !important;
+        text-align: center !important;
     }
 
     #knockout-container h2 {
-        color: #000000 !important;
-        font-size: 16pt !important;
-        margin-bottom: 15px !important;
-        text-align: center !important;
-        border-bottom: 2px solid #000000 !important;
-        padding-bottom: 5px !important;
+        color: #ffffff !important;
+        font-size: 18pt !important;
+        margin-bottom: 10px !important;
+        text-align: left !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
     }
 
     #bracket-grid {
         display: flex !important;
-        flex-direction: column !important; /* Árvore flui verticalmente de cima para baixo */
-        align-items: flex-start !important;
-        justify-content: flex-start !important;
-        min-width: 100% !important;
-        width: 100% !important;
+        flex-direction: row !important; /* Restaura a orientação horizontal original da árvore */
+        justify-content: center !important;
+        align-items: stretch !important;
         gap: 15px !important;
+        min-width: 1000px !important;
+        max-width: 1050px !important;
+        width: 1000px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        transform: scale(0.72) !important; /* Escala perfeita para acomodar a largura horizontal no papel Paisagem A4 */
+        transform-origin: top center !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        height: 520px !important; /* Altura exata para reter o espaço escalado no fluxo da página */
         padding: 0 !important;
-        margin-top: 10px !important;
-        transform: none !important; /* Sem necessidade de escalas artificiais que embaçam */
-        height: auto !important; /* Altura natural para fluir pelo papel */
+        margin-top: 20px !important;
     }
 
+    /* Mantém o alinhamento e flexibilidade originais do chaveamento do site */
     .bracket-side {
         display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
+        flex-direction: row !important;
         gap: 15px !important;
+        width: auto !important;
     }
 
     .left-side {
-        flex-direction: column !important;
+        flex-direction: row !important;
     }
 
     .right-side {
-        flex-direction: column-reverse !important;
+        flex-direction: row-reverse !important;
     }
 
-    /* As colunas do chaveamento se tornam ramificações verticais tracejadas */
     .bracket-col {
         display: flex !important;
         flex-direction: column !important;
-        width: 100% !important;
-        gap: 12px !important;
-        border-left: 2px dashed #333333 !important; /* Ramificação da árvore */
-        padding-left: 15px !important;
-        padding-top: 5px !important;
-        padding-bottom: 5px !important;
-        page-break-inside: auto !important;
-        break-inside: auto !important;
-    }
-
-    /* Indentação das rodadas na árvore vertical */
-    .left-side .bracket-col:nth-child(1), .right-side .bracket-col:nth-child(1) { 
-        margin-left: 0px !important; 
+        justify-content: space-evenly !important;
+        width: auto !important;
+        gap: 2px !important;
         border-left: none !important;
         padding-left: 0 !important;
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
     }
-    .left-side .bracket-col:nth-child(2), .right-side .bracket-col:nth-child(2) { 
-        margin-left: 20px !important; 
-    }
-    .left-side .bracket-col:nth-child(3), .right-side .bracket-col:nth-child(3) { 
-        margin-left: 40px !important; 
-    }
-    .left-side .bracket-col:nth-child(4), .right-side .bracket-col:nth-child(4) { 
-        margin-left: 60px !important; 
-    }
-    
+
     .bracket-center { 
-        margin-left: 80px !important; 
-        align-items: flex-start !important;
-        padding: 10px 0 !important;
-        border-left: 2px dashed #000000 !important;
-        padding-left: 15px !important;
-        width: 100% !important;
+        margin-left: 0 !important; 
+        align-items: center !important;
+        padding: 0 10px !important;
+        border-left: none !important;
+        width: auto !important;
         display: flex !important;
         flex-direction: column !important;
+        justify-content: center !important;
     }
 
     .bracket-center h3 {
-        color: #000000 !important;
-        font-size: 14pt !important;
-        margin-bottom: 8px !important;
+        color: #ffffff !important;
+        font-size: 1.5rem !important;
+        margin-bottom: 10px !important;
     }
 
     .knockout-match {
-        background: #ffffff !important;
-        border: 1px solid #333333 !important;
-        box-shadow: none !important;
-        color: #000000 !important;
+        background: rgba(0, 155, 58, 0.7) !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
         border-radius: 8px !important;
-        padding: 6px 10px !important;
-        width: 100% !important;
-        max-width: 250px !important; /* Limite de largura para ficar elegante na folha */
+        padding: 8px 12px !important;
+        min-width: 130px !important;
+        width: auto !important;
+        max-width: none !important;
         transform: none !important;
-        page-break-inside: avoid !important; /* Impede cortes no meio de um confronto */
+        page-break-inside: avoid !important;
         break-inside: avoid !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 8px !important;
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
         transform: none !important;
-        box-shadow: none !important;
-        background: #ffffff !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
+        background: rgba(0, 155, 58, 0.7) !important;
     }
 
     .knockout-team-row input[type="radio"] {
-        transform: scale(1.0) !important;
-        accent-color: #000000 !important;
+        transform: scale(1.5) !important;
+        accent-color: #FFDF00 !important;
     }
 
     .knockout-team-row input[type="number"] {
-        border: none !important;
-        border-bottom: 1px solid #000000 !important;
-        background: transparent !important;
-        color: #000000 !important;
-        font-size: 8pt !important;
-        width: 20px !important;
-        height: 18px !important;
+        width: 35px !important;
+        height: 25px !important;
+        border-radius: 4px !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        background: rgba(0,0,0,0.3) !important;
+        color: white !important;
+        font-weight: bold !important;
+        font-size: 1rem !important;
     }
 
     .final-match {
-        border: 2px solid #000000 !important;
-        background: #ffffff !important;
-        box-shadow: none !important;
-        max-width: 270px !important;
-        transform: none !important;
+        transform: scale(1.25) !important;
+        border: 2px solid #FFDF00 !important;
+        box-shadow: 0 0 25px rgba(255, 223, 0, 0.5) !important;
+        background: linear-gradient(135deg, rgba(0,155,58,1) 0%, rgba(0,39,118,1) 100%) !important;
+        max-width: none !important;
     }
 
     .final-match:hover {
-        transform: none !important;
-        box-shadow: none !important;
+        transform: scale(1.25) !important;
+        box-shadow: 0 0 25px rgba(255, 223, 0, 0.5) !important;
     }
 
-    /* Estilos das Figurinhas para Recortar e Colar no PDF (Modo Retrato) */
+    /* PÁGINA 3 E 4: FIGURINHAS EM PAISAGEM */
     #stickers-container {
         display: block !important;
         page-break-before: always !important;
         break-before: page !important;
         margin-top: 30px !important;
         text-align: center !important;
+        background: rgba(0, 155, 58, 0.7) !important;
+        border: 1px solid rgba(255, 223, 0, 0.3) !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
     }
 
     #stickers-container h2 {
-        color: #000000 !important;
-        font-size: 16pt !important;
+        color: #FFDF00 !important;
+        font-size: 18pt !important;
         margin-bottom: 5px !important;
-        border-bottom: 2px solid #000000 !important;
-        padding-bottom: 5px !important;
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
     }
 
     .stickers-instruction {
-        font-size: 9.5pt !important;
-        color: #333333 !important;
+        font-size: 10pt !important;
+        color: #e2e8f0 !important;
         margin-bottom: 20px !important;
     }
 
     #stickers-grid {
         display: grid !important;
-        grid-template-columns: repeat(8, 1fr) !important; /* 8 figurinhas por linha para caber em Retrato */
-        gap: 6px !important;
-        justify-items: center !important;
-        align-items: center !important;
+        grid-template-columns: repeat(10, 1fr) !important; /* 10 figurinhas por linha em Paisagem */
+        gap: 8px !important;
         width: 100% !important;
     }
 
     .sticker-item {
-        border: 1px dashed #555555 !important; /* Linha de corte pontilhada tracejada cinza/preta */
+        border: 1px dashed rgba(255, 223, 0, 0.6) !important; /* Borda tracejada amarelada */
         padding: 5px !important;
-        width: 60px !important;
-        height: 52px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #ffffff !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        width: 65px !important;
+        height: 55px !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        border-radius: 8px !important;
     }
 
     .sticker-flag {
         width: 32px !important;
         height: 22px !important;
-        object-fit: cover !important;
-        border: 1px solid #999999 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+        border: none !important;
         margin-bottom: 2px !important;
-        filter: none !important; /* IMPORTANTE: Deixa as bandeiras das figurinhas coloridas para recortar! */
+        filter: none !important;
         opacity: 1.0 !important;
     }
 
     .sticker-name {
         font-size: 7.5pt !important;
-        font-weight: bold !important;
-        color: #000000 !important;
-        text-transform: uppercase !important;
+        color: #ffffff !important;
     }
 }
 
