@@ -864,26 +864,26 @@ footer {
         flex-direction: row !important; /* Mantém a árvore horizontal original convergente */
         justify-content: space-between !important;
         align-items: stretch !important;
-        gap: 6px !important;
+        gap: 15px !important; /* Maior espaçamento horizontal entre as fases */
         min-width: 1000px !important;
         max-width: 1020px !important;
         width: 1000px !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        transform: scale(0.8) !important; /* Escala suave excelente de largura */
+        transform: scale(0.95) !important; /* Aumenta o tamanho geral para preencher a folha horizontalmente */
         transform-origin: top center !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
-        height: 350px !important; /* ALTURA ULTRA COMPACTA: Garante 100% que caiba em uma única página */
+        height: 480px !important; /* Altura ideal que afasta os confrontos e preenche o espaço vertical da folha */
         padding: 0 !important;
-        margin-top: 5px !important;
+        margin-top: 10px !important;
     }
 
     /* Mantém o alinhamento e flexibilidade originais do chaveamento horizontal */
     .bracket-side {
         display: flex !important;
         flex-direction: row !important;
-        gap: 6px !important;
+        gap: 15px !important; /* Maior espaçamento horizontal */
         width: auto !important;
     }
 
@@ -919,29 +919,29 @@ footer {
 
     .bracket-center h3 {
         color: #000000 !important;
-        font-size: 10pt !important;
-        margin-bottom: 2px !important;
+        font-size: 13pt !important;
+        margin-bottom: 4px !important;
     }
 
-    /* Cards de Confrontos Ultra Compactos */
+    /* Cards de Confrontos Confortáveis e Robustos */
     .knockout-match {
         background: #ffffff !important;
         border: 1px solid #000000 !important;
         box-shadow: none !important;
         color: #000000 !important;
-        border-radius: 4px !important;
-        padding: 2px 4px !important; /* Padding ultra reduzido para salvar altura */
-        min-width: 120px !important;
-        width: 120px !important;
-        max-width: 120px !important;
+        border-radius: 6px !important;
+        padding: 4px 6px !important; /* Espaçamento interno confortável */
+        min-width: 145px !important;
+        width: 145px !important;
+        max-width: 145px !important;
         transform: none !important;
         page-break-inside: avoid !important;
         break-inside: avoid !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
-        gap: 2px !important;
-        height: 34px !important; /* Altura física fixa super pequena */
+        gap: 3px !important;
+        height: 48px !important; /* Altura ideal que preenche e fica linda */
     }
 
     .knockout-match:hover, .knockout-match:focus-within {
@@ -951,56 +951,57 @@ footer {
     }
 
     .knockout-team-row {
-        height: 14px !important;
+        height: 20px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        gap: 2px !important;
+        gap: 4px !important;
     }
 
     .knockout-team-row input[type="radio"] {
-        transform: scale(0.8) !important; /* Rádio menor e discreto */
+        transform: scale(1.1) !important; /* Rádio com tamanho normal de tela */
         accent-color: #000000 !important;
         margin: 0 !important;
     }
 
     .knockout-team-row input[type="number"] {
-        width: 16px !important; /* Input super estreito */
-        height: 12px !important;
+        width: 22px !important; /* Input com tamanho excelente */
+        height: 16px !important;
         border: none !important;
         border-bottom: 1px solid #000000 !important;
         background: transparent !important;
         color: #000000 !important;
         font-weight: bold !important;
-        font-size: 7.5pt !important;
+        font-size: 8.5pt !important;
         text-align: center !important;
         padding: 0 !important;
     }
 
     .knockout-team-row .team-name {
-        font-size: 7pt !important;
+        font-size: 8.5pt !important;
         font-weight: bold !important;
-        max-width: 50px !important;
+        max-width: 65px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
 
     .team-flag {
-        width: 14px !important;
-        height: 10px !important;
-        margin-right: 2px !important;
+        width: 18px !important;
+        height: 12px !important;
+        margin-right: 4px !important;
+        border: 1px solid #999999 !important;
     }
 
     .final-match {
-        transform: scale(1.05) !important;
+        transform: scale(1.15) !important; /* Destaque maior na Grande Final */
         border: 2px solid #000000 !important;
         box-shadow: none !important;
         background: #ffffff !important;
     }
 
     .final-match:hover {
-        transform: scale(1.05) !important;
+        transform: scale(1.15) !important;
         box-shadow: none !important;
     }
 
