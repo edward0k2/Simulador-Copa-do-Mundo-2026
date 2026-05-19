@@ -52,7 +52,13 @@
             </div>
 
             <section id="knockout-container">
-                <h2>Fase Eliminatória (Mata-Mata)</h2>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; padding: 0 10px;">
+                    <h2 style="margin: 0;">Fase Eliminatória (Mata-Mata)</h2>
+                    <div class="actions" style="margin: 0;">
+                        <button id="btn-undo" class="btn btn-secondary" disabled style="padding: 8px 15px; font-size: 0.9rem;">↩ Desfazer</button>
+                        <button id="btn-clear-ko" class="btn btn-close" style="margin: 0; padding: 8px 15px; font-size: 0.9rem;">🗑️ Limpar Mata-Mata</button>
+                    </div>
+                </div>
                 <div id="bracket-grid">
                     <!-- O chaveamento das 32 seleções será inserido aqui pelo JS -->
                 </div>

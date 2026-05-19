@@ -55,6 +55,20 @@ const bracketGrid = document.getElementById('bracket-grid');
 const teamStatsModal = document.getElementById('team-stats-modal');
 
 let state = {}; // Armazena os placares
+let stateHistory = []; // Armazena o histórico de estados
+
+function saveStateToHistory() {
+    stateHistory.push(JSON.parse(JSON.stringify(state)));
+    if (stateHistory.length > 50) stateHistory.shift(); // Limite de 50 passos
+    updateActionButtons();
+}
+
+function updateActionButtons() {
+    const btnUndo = document.getElementById('btn-undo');
+    if (btnUndo) {
+        btnUndo.disabled = stateHistory.length === 0;
+    }
+}
 
 // Inicializa o estado e renderiza
 function init() {
@@ -123,6 +137,27 @@ function calculateTable(groupName, teams) {
     return table;
 }
 
+function updateGroupTables() {
+    for (const [groupName, teams] of Object.entries(worldCupGroups)) {
+        const tableData = calculateTable(groupName, teams);
+        const tbody = document.getElementById(`table-body-${groupName}`);
+        if (tbody) {
+            tbody.innerHTML = tableData.map((t, i) => `
+                <tr style="${i < 2 ? 'background: rgba(16, 185, 129, 0.2);' : ''}">
+                    <td class="team-name" style="text-align: left;">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                            <img src="${getFlagURL(t.name)}" class="group-flag" alt="${t.name}">
+                            <span title="${t.name}" style="white-space: nowrap;">${teamCodes[t.name]}</span>
+                        </div>
+                    </td>
+                    <td>${t.p}</td><td>${t.j}</td><td>${t.v}</td>
+                    <td>${t.e}</td><td>${t.d}</td><td>${t.sg}</td>
+                </tr>
+            `).join('');
+        }
+    }
+}
+
 function renderGroups() {
     groupsContainer.innerHTML = '';
     
@@ -141,7 +176,7 @@ function renderGroups() {
                         <th style="text-align: left;">Seleção</th><th>P</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-body-${groupName}">
                     ${tableData.map((t, i) => `
                         <tr style="${i < 2 ? 'background: rgba(16, 185, 129, 0.2);' : ''}">
                             <td class="team-name" style="text-align: left;">
@@ -186,6 +221,13 @@ function renderGroups() {
 }
 
 function setupListeners() {
+    // Escuta de 'change' (perda de foco) para salvar o histórico sem spam
+    document.addEventListener('change', (e) => {
+        if (e.target.classList.contains('score-input')) {
+            saveStateToHistory();
+        }
+    });
+
     // Delegação de eventos para inputs de placar e radio buttons (Mata-Mata)
     document.addEventListener('input', (e) => {
         if (e.target.classList.contains('score-input')) {
@@ -195,23 +237,37 @@ function setupListeners() {
             if (!state[matchId]) state[matchId] = { home: '', away: '' };
             state[matchId][type] = e.target.value;
             
-            if (matchId.includes('-')) { 
-                renderGroups();
+            if (matchId.includes('-') && !matchId.startsWith('ko-')) { 
+                updateGroupTables();
+                generateKnockoutBracket();
+            } else {
                 generateKnockoutBracket();
             }
             updateURL();
         }
+    });
 
-        // Lógica para avançar no mata-mata
-        if (e.target.classList.contains('knockout-radio')) {
-            const matchId = e.target.getAttribute('data-match');
-            const winnerName = e.target.value;
-            
-            if (!state[matchId]) state[matchId] = {};
-            state[matchId].winner = winnerName;
-            
-            generateKnockoutBracket(); // Atualiza a chave toda para mostrar o vencedor na próxima fase
+    // Ações dos novos botões
+    document.getElementById('btn-undo').addEventListener('click', () => {
+        if (stateHistory.length > 0) {
+            state = stateHistory.pop();
             updateURL();
+            renderGroups();
+            generateKnockoutBracket();
+            updateActionButtons();
+        }
+    });
+
+    document.getElementById('btn-clear-ko').addEventListener('click', () => {
+        if(confirm("Tem certeza que deseja limpar todo o mata-mata? Isso apagará todos os resultados eliminatórios.")) {
+            saveStateToHistory();
+            for (let key in state) {
+                if (key.startsWith('ko-')) {
+                    delete state[key];
+                }
+            }
+            updateURL();
+            generateKnockoutBracket();
         }
     });
 
@@ -289,18 +345,6 @@ function openTeamStats(team) {
 }
 
 // ---- Lógica do Mata-Mata ----
-function isGroupStageComplete() {
-    for (const [groupName, teams] of Object.entries(worldCupGroups)) {
-        const matches = generateMatches(teams);
-        for (let index = 0; index < matches.length; index++) {
-            const matchId = `${groupName}-${index}`;
-            const s = state[matchId];
-            if (!s || s.home === '' || s.away === '') return false;
-        }
-    }
-    return true;
-}
-
 function generateKnockoutBracket() {
     if(!knockoutContainer) return;
     bracketGrid.innerHTML = '';
@@ -312,27 +356,21 @@ function generateKnockoutBracket() {
     }
 
     let qualified = [];
+    let thirdPlaces = [];
     
-    if (isGroupStageComplete()) {
-        let thirdPlaces = [];
-        allGroupsResults.forEach(g => {
-            qualified.push(g.table[0]);
-            qualified.push(g.table[1]);
-            thirdPlaces.push(g.table[2]);
-        });
+    allGroupsResults.forEach(g => {
+        qualified.push(g.table[0]);
+        qualified.push(g.table[1]);
+        thirdPlaces.push(g.table[2]);
+    });
 
-        thirdPlaces.sort((a, b) => {
-            if (b.p !== a.p) return b.p - a.p;
-            if (b.sg !== a.sg) return b.sg - a.sg;
-            return b.gp - a.gp;
-        });
+    thirdPlaces.sort((a, b) => {
+        if (b.p !== a.p) return b.p - a.p;
+        if (b.sg !== a.sg) return b.sg - a.sg;
+        return b.gp - a.gp;
+    });
 
-        qualified = qualified.concat(thirdPlaces.slice(0, 8));
-    } else {
-        for(let i=0; i<32; i++) {
-            qualified.push({name: "TBD"});
-        }
-    }
+    qualified = qualified.concat(thirdPlaces.slice(0, 8));
 
     // O Bracket tem 5 Fases (Tiers)
     const rounds = [
@@ -351,10 +389,22 @@ function generateKnockoutBracket() {
     const center = document.createElement('div');
     center.className = 'bracket-center';
 
+    let winners = {};
+
+    function getWinner(matchId, teamA, teamB) {
+        const s = state[matchId];
+        if (s && s.home !== '' && s.away !== '') {
+            const h = parseInt(s.home);
+            const a = parseInt(s.away);
+            if (h > a) return teamA;
+            if (a > h) return teamB;
+        }
+        return "TBD";
+    }
+
     function createMatchHTML(matchId, teamA, teamB) {
         const s = state[matchId] || {};
-        const checkedA = (s.winner === teamA && teamA !== "TBD") ? "checked" : "";
-        const checkedB = (s.winner === teamB && teamB !== "TBD") ? "checked" : "";
+        winners[matchId] = getWinner(matchId, teamA, teamB);
         
         const flagA = teamA === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamA)}" alt="${teamA}" title="${teamA}" class="team-flag team-name" />`;
         const flagB = teamB === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamB)}" alt="${teamB}" title="${teamB}" class="team-flag team-name" />`;
@@ -363,13 +413,13 @@ function generateKnockoutBracket() {
             <div class="knockout-match" tabindex="0">
                 <div class="knockout-team-row">
                     ${flagA}
-                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="home" value="${s.home || ''}" ${teamA === 'TBD' ? 'disabled' : ''}>
-                    <input type="radio" name="${matchId}" value="${teamA}" class="knockout-radio" data-match="${matchId}" ${checkedA} ${teamA === 'TBD' ? 'disabled' : ''}>
+                    <span class="team-name" title="${teamA}">${teamA === 'TBD' ? '?' : teamCodes[teamA]}</span>
+                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="home" value="${s.home || ''}" ${teamA === 'TBD' ? 'disabled' : ''}>
                 </div>
                 <div class="knockout-team-row">
                     ${flagB}
-                    <input type="number" min="0" class="score-input" data-match="${matchId}" data-type="away" value="${s.away || ''}" ${teamB === 'TBD' ? 'disabled' : ''}>
-                    <input type="radio" name="${matchId}" value="${teamB}" class="knockout-radio" data-match="${matchId}" ${checkedB} ${teamB === 'TBD' ? 'disabled' : ''}>
+                    <span class="team-name" title="${teamB}">${teamB === 'TBD' ? '?' : teamCodes[teamB]}</span>
+                    <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="away" value="${s.away || ''}" ${teamB === 'TBD' ? 'disabled' : ''}>
                 </div>
             </div>
         `;
@@ -392,8 +442,8 @@ function generateKnockoutBracket() {
             } else {
                 const prevMatchA = `ko-${round.tier - 1}-${i * 2}`;
                 const prevMatchB = `ko-${round.tier - 1}-${i * 2 + 1}`;
-                teamA = (state[prevMatchA] && state[prevMatchA].winner) ? state[prevMatchA].winner : "TBD";
-                teamB = (state[prevMatchB] && state[prevMatchB].winner) ? state[prevMatchB].winner : "TBD";
+                teamA = winners[prevMatchA] || "TBD";
+                teamB = winners[prevMatchB] || "TBD";
             }
             
             const matchId = `ko-${round.tier}-${i}`;
@@ -415,8 +465,8 @@ function generateKnockoutBracket() {
     const finalTier = 4;
     const prevA = `ko-3-0`; // Vencedor da Semifinal 1 (Esquerda)
     const prevB = `ko-3-1`; // Vencedor da Semifinal 2 (Direita)
-    let teamAFinal = (state[prevA] && state[prevA].winner) ? state[prevA].winner : "TBD";
-    let teamBFinal = (state[prevB] && state[prevB].winner) ? state[prevB].winner : "TBD";
+    let teamAFinal = winners[prevA] || "TBD";
+    let teamBFinal = winners[prevB] || "TBD";
     const finalMatchId = `ko-4-0`;
 
     center.style.position = 'relative';
