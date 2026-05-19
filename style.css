@@ -691,6 +691,10 @@ footer {
     }
 }
 
+#stickers-container {
+    display: none;
+}
+
 /* --- Estilos de Impressão de Alta Performance para PDF Preto e Branco (Modo Retrato & Árvore Vertical) --- */
 @media print {
     @page {
@@ -970,6 +974,69 @@ footer {
     .final-match:hover {
         transform: none !important;
         box-shadow: none !important;
+    }
+
+    /* Estilos das Figurinhas para Recortar e Colar no PDF (Modo Retrato) */
+    #stickers-container {
+        display: block !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-top: 30px !important;
+        text-align: center !important;
+    }
+
+    #stickers-container h2 {
+        color: #000000 !important;
+        font-size: 16pt !important;
+        margin-bottom: 5px !important;
+        border-bottom: 2px solid #000000 !important;
+        padding-bottom: 5px !important;
+    }
+
+    .stickers-instruction {
+        font-size: 9.5pt !important;
+        color: #333333 !important;
+        margin-bottom: 20px !important;
+    }
+
+    #stickers-grid {
+        display: grid !important;
+        grid-template-columns: repeat(8, 1fr) !important; /* 8 figurinhas por linha para caber em Retrato */
+        gap: 6px !important;
+        justify-items: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .sticker-item {
+        border: 1px dashed #555555 !important; /* Linha de corte pontilhada tracejada cinza/preta */
+        padding: 5px !important;
+        width: 60px !important;
+        height: 52px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #ffffff !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    .sticker-flag {
+        width: 32px !important;
+        height: 22px !important;
+        object-fit: cover !important;
+        border: 1px solid #999999 !important;
+        margin-bottom: 2px !important;
+        filter: none !important; /* IMPORTANTE: Deixa as bandeiras das figurinhas coloridas para recortar! */
+        opacity: 1.0 !important;
+    }
+
+    .sticker-name {
+        font-size: 7.5pt !important;
+        font-weight: bold !important;
+        color: #000000 !important;
+        text-transform: uppercase !important;
     }
 }
 

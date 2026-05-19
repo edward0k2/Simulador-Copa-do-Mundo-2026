@@ -70,12 +70,44 @@ function updateActionButtons() {
     }
 }
 
+// Gera a página de figurinhas para recortar e colar
+function generateStickers() {
+    const grid = document.getElementById('stickers-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    // Obter todas as seleções únicas
+    const allTeams = Object.values(worldCupGroups).flat();
+    
+    allTeams.forEach(team => {
+        // Gerar exatamente 4 figurinhas para cada seleção
+        for (let i = 0; i < 4; i++) {
+            const item = document.createElement('div');
+            item.className = 'sticker-item';
+            
+            const flag = document.createElement('img');
+            flag.className = 'sticker-flag';
+            flag.src = getFlagURL(team);
+            flag.alt = team;
+            
+            const name = document.createElement('span');
+            name.className = 'sticker-name';
+            name.textContent = teamCodes[team] || team.substring(0, 3);
+            
+            item.appendChild(flag);
+            item.appendChild(name);
+            grid.appendChild(item);
+        }
+    });
+}
+
 // Inicializa o estado e renderiza
 function init() {
     loadStateFromURL();
     renderGroups();
     generateKnockoutBracket(); // Mostra o mata-mata desde o início
     setupListeners();
+    generateStickers(); // Gera a página de figurinhas para recorte
 }
 
 function generateMatches(teams) {
