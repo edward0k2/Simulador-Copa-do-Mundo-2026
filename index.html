@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,122 +8,172 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
+
     <!-- Verificação de propriedade do Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-8114336945596368">
-    
-    <!-- GOOGLE ADSENSE - SCRIPT DE ATIVAÇÃO GLOBAL -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8114336945596368" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div id="app-container">
-        <header>
-            <h1>Copa do Mundo 2026 <span>Simulador</span></h1>
-            <p>Simule todos os jogos, compartilhe seus palpites e divirta-se!</p>
-            <div class="actions">
-                <button id="btn-share-link" class="btn btn-primary">Compartilhar Link</button>
-                <button id="btn-share-print" class="btn btn-secondary">Baixar Imagem (Print)</button>
-                <button id="btn-print-pdf" class="btn btn-secondary" style="background: #4b5563; color: white; box-shadow: 0 4px 14px rgba(75, 85, 99, 0.4);">🖨️ Baixar PDF (P&B)</button>
-                <a href="https://www.google.com/search?q=jogos+da+copa+do+mundo+2026+ao+tempo+real" target="_blank" class="btn btn-secondary" style="background: #ea4335; color: white; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;"><path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.529-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c5.895 0 9.817-4.143 9.817-9.99 0-.672-.072-1.187-.16-1.705H12.24z"/></svg>
-                    Acompanhar no Google 🔴
-                </a>
-                <button id="btn-reset" class="btn btn-close" style="margin: 0;">🔄 Limpar Tudo</button>
-            </div>
-        </header>
 
-        <div class="tab-container">
-            <button id="tab-guesses" class="tab-btn active">✍️ Meus Palpites</button>
-            <button id="tab-live" class="tab-btn">🔴 Resultados Reais (Ao Vivo)</button>
+    <!-- GOOGLE ADSENSE - SCRIPT DE ATIVAÇÃO GLOBAL -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8114336945596368"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="ad-banner"
+        style="min-height: 90px; display: flex; justify-content: center; align-items: center; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; margin-top: 20px; margin-bottom: 20px; overflow: hidden; padding: 10px;">
+        <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-8114336945596368"
+            data-ad-slot="9606885135" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <header>
+        <h1>Copa do Mundo 2026 <span>Simulador</span></h1>
+        <p>Simule todos os jogos, compartilhe seus palpites e divirta-se!</p>
+        <div class="actions">
+            <button id="btn-share-link" class="btn btn-primary">Compartilhar Link</button>
+            <button id="btn-share-print" class="btn btn-secondary">Baixar Imagem (Print)</button>
+            <button id="btn-print-pdf" class="btn btn-secondary"
+                style="background: #4b5563; color: white; box-shadow: 0 4px 14px rgba(75, 85, 99, 0.4);">🖨️ Baixar
+                PDF (P&B)</button>
+            <a href="https://www.google.com/search?q=jogos+da+copa+do+mundo+2026+ao+tempo+real" target="_blank"
+                class="btn btn-secondary"
+                style="background: #ea4335; color: white; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle;">
+                    <path
+                        d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.529-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c5.895 0 9.817-4.143 9.817-9.99 0-.672-.072-1.187-.16-1.705H12.24z" />
+                </svg>
+                Acompanhar no Google 🔴
+            </a>
+            <button id="btn-reset" class="btn btn-close" style="margin: 0;">🔄 Limpar Tudo</button>
+        </div>
+    </header>
+
+    <div class="tab-container">
+        <button id="tab-guesses" class="tab-btn active">✍️ Meus Palpites</button>
+        <button id="tab-live" class="tab-btn">🔴 Resultados Reais (Ao Vivo)</button>
+    </div>
+
+    <main>
+        <!-- Painel de Controle do Modo Ao Vivo (Oculto por padrão) -->
+        <div id="live-control-panel" class="live-panel hidden">
+            <div class="live-panel-header">
+                <h3>🔴 Painel de Monitoramento Ao Vivo</h3>
+                <span id="live-connection-status" class="status-connected">Aguardando Início dos Jogos...</span>
+            </div>
+            <p>Os placares abaixo são atualizados em tempo real conforme as partidas acontecem. Você também pode
+                experimentar a simulação da rodada ao vivo para ver a tabela e o mata-mata mudarem dinamicamente!
+            </p>
+            <div class="live-actions">
+                <button id="btn-start-live-sim" class="btn btn-primary"
+                    style="background: #ea4335; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); color: white;">⚽
+                    Iniciar Simulação de Jogos Ao Vivo</button>
+                <button id="btn-stop-live-sim" class="btn btn-close hidden" style="margin: 0;">⏹️ Parar
+                    Simulação</button>
+            </div>
         </div>
 
-        <main>
-            <!-- Painel de Controle do Modo Ao Vivo (Oculto por padrão) -->
-            <div id="live-control-panel" class="live-panel hidden">
-                <div class="live-panel-header">
-                    <h3>🔴 Painel de Monitoramento Ao Vivo</h3>
-                    <span id="live-connection-status" class="status-connected">Aguardando Início dos Jogos...</span>
-                </div>
-                <p>Os placares abaixo são atualizados em tempo real conforme as partidas acontecem. Você também pode experimentar a simulação da rodada ao vivo para ver a tabela e o mata-mata mudarem dinamicamente!</p>
-                <div class="live-actions">
-                    <button id="btn-start-live-sim" class="btn btn-primary" style="background: #ea4335; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.4); color: white;">⚽ Iniciar Simulação de Jogos Ao Vivo</button>
-                    <button id="btn-stop-live-sim" class="btn btn-close hidden" style="margin: 0;">⏹️ Parar Simulação</button>
-                </div>
-            </div>
+        <section id="groups-container">
+            <!-- Grupos serão gerados aqui pelo JS -->
+        </section>
 
-            <section id="groups-container">
-                <!-- Grupos serão gerados aqui pelo JS -->
-            </section>
-
-            <section id="knockout-container">
-                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; padding: 0 10px;">
-                    <h2 style="margin: 0; color: #002776; text-shadow: -1px -1px 0 #009B3A, 1px -1px 0 #009B3A, -1px 1px 0 #009B3A, 1px 1px 0 #009B3A">Fase Eliminatória (Mata-Mata)</h2>
-                    <div class="actions" style="margin: 0;">
-                        <button id="btn-undo" class="btn btn-secondary" disabled style="padding: 8px 15px; font-size: 0.9rem;">↩ Desfazer</button>
-                        <button id="btn-clear-ko" class="btn btn-close" style="margin: 0; padding: 8px 15px; font-size: 0.9rem;">🗑️ Limpar Mata-Mata</button>
-                    </div>
-                </div>
-                <div id="bracket-grid">
-                    <!-- O chaveamento das 32 seleções será inserido aqui pelo JS -->
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Ad Banner - Google AdSense (Substitua data-ad-slot pelo seu ID de bloco real) -->
-        <div class="ad-banner" style="min-height: 90px; display: flex; justify-content: center; align-items: center; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; margin-top: 20px; margin-bottom: 20px; overflow: hidden; padding: 10px;">
-            <ins class="adsbygoogle"
-                 style="display:block; width:100%;"
-                 data-ad-client="ca-pub-8114336945596368"
-                 data-ad-slot="9606885135"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+        <div class="ad-banner"
+            style="min-height: 90px; display: flex; justify-content: center; align-items: center; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; margin-top: 20px; margin-bottom: 20px; overflow: hidden; padding: 10px;">
+            <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-8114336945596368"
+                data-ad-slot="9606885135" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
 
-        <!-- Adsterra Banners - 2 caixas lado a lado -->
-        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
-
-            <!-- Adsterra Banner 1 - Native/Inline -->
-            <div style="flex: 1; min-width: 300px; max-width: 600px; min-height: 100px; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; padding: 10px;">
-                <script async="async" data-cfasync="false" src="https://pl29519378.effectivecpmnetwork.com/37f5079d288c07ecb3de5b56f7c22346/invoke.js"></script>
-                <div id="container-37f5079d288c07ecb3de5b56f7c22346"></div>
+        <section id="knockout-container">
+            <div
+                style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 20px; padding: 0 10px;">
+                <h2
+                    style="margin: 0; color: #002776; text-shadow: -1px -1px 0 #009B3A, 1px -1px 0 #009B3A, -1px 1px 0 #009B3A, 1px 1px 0 #009B3A">
+                    Fase Eliminatória (Mata-Mata)</h2>
+                <div class="actions" style="margin: 0;">
+                    <button id="btn-undo" class="btn btn-secondary" disabled
+                        style="padding: 8px 15px; font-size: 0.9rem;">↩ Desfazer</button>
+                    <button id="btn-clear-ko" class="btn btn-close"
+                        style="margin: 0; padding: 8px 15px; font-size: 0.9rem;">🗑️ Limpar Mata-Mata</button>
+                </div>
             </div>
-
-            <!-- Adsterra Banner 2 - 300x250 iframe -->
-            <div style="flex: 0 0 auto; min-height: 250px; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; padding: 10px;">
-                <script>
-                    atOptions = {
-                        'key' : '7e9bd24a74cfa290c3b8f8a59e3b88e0',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script src="https://www.highperformanceformat.com/7e9bd24a74cfa290c3b8f8a59e3b88e0/invoke.js"></script>
+            <div id="bracket-grid">
+                <!-- O chaveamento das 32 seleções será inserido aqui pelo JS -->
             </div>
+        </section>
+    </main>
 
+    <!-- Bottom Ad Banner - Google AdSense (Substitua data-ad-slot pelo seu ID de bloco real) -->
+    <div class="ad-banner"
+        style="min-height: 90px; display: flex; justify-content: center; align-items: center; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; margin-top: 20px; margin-bottom: 20px; overflow: hidden; padding: 10px;">
+        <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-client="ca-pub-8114336945596368"
+            data-ad-slot="9606885135" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- Adsterra Banners - 2 caixas lado a lado -->
+    <div
+        style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 20px;">
+
+        <!-- Adsterra Banner 1 - Native/Inline -->
+        <div
+            style="flex: 1; min-width: 300px; max-width: 600px; min-height: 100px; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; padding: 10px;">
+            <script async="async" data-cfasync="false"
+                src="https://pl29519378.effectivecpmnetwork.com/37f5079d288c07ecb3de5b56f7c22346/invoke.js"></script>
+            <div id="container-37f5079d288c07ecb3de5b56f7c22346"></div>
         </div>
 
-        <footer>
-            <p>&copy; 2026 Simulador da Copa. Desenvolvido por <a href="https://www.linkedin.com/in/jesus-eduardo-pereira/" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">Jesus Eduardo</a>.</p>
-            <div style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: center; gap: 10px;">
-                <a href="#" id="btn-open-privacy" style="color: var(--primary); text-decoration: none; font-weight: 500;">Política de Privacidade</a> | 
-                <a href="#" id="btn-open-terms" style="color: var(--primary); text-decoration: none; font-weight: 500;">Termos de Uso</a>
-            </div>
-            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
-                <a href="https://github.com/edward0k2" target="_blank" style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/jesus-eduardo-pereira/" target="_blank" style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    LinkedIn
-                </a>
-            </div>
-        </footer>
+        <!-- Adsterra Banner 2 - 300x250 iframe -->
+        <div
+            style="flex: 0 0 auto; min-height: 250px; background: rgba(30, 41, 59, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; padding: 10px;">
+            <script>
+                atOptions = {
+                    'key': '7e9bd24a74cfa290c3b8f8a59e3b88e0',
+                    'format': 'iframe',
+                    'height': 250,
+                    'width': 300,
+                    'params': {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/7e9bd24a74cfa290c3b8f8a59e3b88e0/invoke.js"></script>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Simulador da Copa. Desenvolvido por <a href="https://www.linkedin.com/in/jesus-eduardo-pereira/"
+                target="_blank" style="color: var(--primary); text-decoration: none; font-weight: bold;">Jesus
+                Eduardo</a>.</p>
+        <div
+            style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: center; gap: 10px;">
+            <a href="#" id="btn-open-privacy"
+                style="color: var(--primary); text-decoration: none; font-weight: 500;">Política de Privacidade</a>
+            |
+            <a href="#" id="btn-open-terms"
+                style="color: var(--primary); text-decoration: none; font-weight: 500;">Termos de Uso</a>
+        </div>
+        <div style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+            <a href="https://github.com/edward0k2" target="_blank"
+                style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/jesus-eduardo-pereira/" target="_blank"
+                style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+                LinkedIn
+            </a>
+        </div>
+    </footer>
     </div>
 
     <!-- Modals -->
@@ -152,7 +203,8 @@
                         <!-- Estatísticas serão preenchidas aqui -->
                     </ul>
                 </div>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">*Os dados reais podem ser integrados via API (Ex: API-Football) futuramente.</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">*Os dados reais podem ser
+                    integrados via API (Ex: API-Football) futuramente.</p>
             </div>
             <button id="btn-close-team-modal" class="btn btn-close">Fechar</button>
         </div>
@@ -160,13 +212,14 @@
 
     <!-- Modal de Políticas de Privacidade e Termos de Uso (Crítico para Aprovação do Google AdSense) -->
     <div id="privacy-terms-modal" class="modal hidden">
-        <div class="modal-content glass" style="max-width: 700px; max-height: 80vh; overflow-y: auto; text-align: left; padding: 30px;">
+        <div class="modal-content glass"
+            style="max-width: 700px; max-height: 80vh; overflow-y: auto; text-align: left; padding: 30px;">
             <h2 id="policy-modal-title" style="color: var(--primary); margin-bottom: 20px;">Política de Privacidade</h2>
-            
+
             <div id="policy-modal-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text);">
                 <!-- O conteúdo dinâmico da política ou termos será inserido aqui pelo JS -->
             </div>
-            
+
             <div class="actions" style="margin-top: 25px; display: flex; justify-content: flex-end;">
                 <button id="btn-close-policy-modal" class="btn btn-close" style="margin: 0;">Fechar</button>
             </div>
@@ -176,11 +229,13 @@
     <!-- Seção de Figurinhas para Impressão (Oculta na exibição de tela) -->
     <div id="stickers-container">
         <h2>✂️ Figurinhas da Copa (Recortar e Colar)</h2>
-        <p class="stickers-instruction">Imprima essa folha, recorte com a tesoura e cole as bandeiras dos países nas caixas do Mata-Mata para montar o seu chaveamento físico!</p>
+        <p class="stickers-instruction">Imprima essa folha, recorte com a tesoura e cole as bandeiras dos países nas
+            caixas do Mata-Mata para montar o seu chaveamento físico!</p>
         <div id="stickers-grid"></div>
     </div>
 
     <script src="teams.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

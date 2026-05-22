@@ -1,52 +1,52 @@
 // worldCupGroups é definido em teams.js (carregado antes deste script — grupos oficiais da FIFA 2026)
 const countryCodes = {
-    "México ": "mx ", "África do Sul ": "za ", "Coreia do Sul ": "kr ", "República Tcheca ": "cz ",
-    "Canadá ": "ca ", "Bósnia e Herzegovina ": "ba ", "Catar ": "qa ", "Suíça ": "ch ",
-    "Brasil ": "br ", "Marrocos ": "ma ", "Haiti ": "ht ", "Escócia ": "gb-sct ",
-    "Estados Unidos ": "us ", "Paraguai ": "py ", "Austrália ": "au ", "Turquia ": "tr ",
-    "Alemanha ": "de ", "Curaçao ": "cw ", "Costa do Marfim ": "ci ", "Equador ": "ec ",
-    "Holanda ": "nl ", "Japão ": "jp ", "Suécia ": "se ", "Tunísia ": "tn ",
-    "Bélgica ": "be ", "Egito ": "eg ", "Irã ": "ir ", "Nova Zelândia ": "nz ",
-    "Espanha ": "es ", "Cabo Verde ": "cv ", "Arábia Saudita ": "sa ", "Uruguai ": "uy ",
-    "França ": "fr ", "Senegal ": "sn ", "Iraque ": "iq ", "Noruega ": "no ",
-    "Argentina ": "ar ", "Argélia ": "dz ", "Áustria ": "at ", "Jordânia ": "jo ",
-    "Portugal ": "pt ", "RD Congo ": "cd ", "Uzbequistão ": "uz ", "Colômbia ": "co ",
-    "Inglaterra ": "gb-eng ", "Croácia ": "hr ", "Gana ": "gh ", "Panamá ": "pa "
+    "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "República Tcheca": "cz",
+    "Canadá": "ca", "Bósnia e Herzegovina": "ba", "Catar": "qa", "Suíça": "ch",
+    "Brasil": "br", "Marrocos": "ma", "Haiti": "ht", "Escócia": "gb-sct",
+    "Estados Unidos": "us", "Paraguai": "py", "Austrália": "au", "Turquia": "tr",
+    "Alemanha": "de", "Curaçao": "cw", "Costa do Marfim": "ci", "Equador": "ec",
+    "Holanda": "nl", "Japão": "jp", "Suécia": "se", "Tunísia": "tn",
+    "Bélgica": "be", "Egito": "eg", "Irã": "ir", "Nova Zelândia": "nz",
+    "Espanha": "es", "Cabo Verde": "cv", "Arábia Saudita": "sa", "Uruguai": "uy",
+    "França": "fr", "Senegal": "sn", "Iraque": "iq", "Noruega": "no",
+    "Argentina": "ar", "Argélia": "dz", "Áustria": "at", "Jordânia": "jo",
+    "Portugal": "pt", "RD Congo": "cd", "Uzbequistão": "uz", "Colômbia": "co",
+    "Inglaterra": "gb-eng", "Croácia": "hr", "Gana": "gh", "Panamá": "pa"
 };
 
 const teamCodes = {
-    "México ": "MEX ", "África do Sul ": "RSA ", "Coreia do Sul ": "KOR ", "República Tcheca ": "CZE ",
-    "Canadá ": "CAN ", "Bósnia e Herzegovina ": "BIH ", "Catar ": "QAT ", "Suíça ": "SUI ",
-    "Brasil ": "BRA ", "Marrocos ": "MAR ", "Haiti ": "HAI ", "Escócia ": "SCO ",
-    "Estados Unidos ": "USA ", "Paraguai ": "PAR ", "Austrália ": "AUS ", "Turquia ": "TUR ",
-    "Alemanha ": "GER ", "Curaçao ": "CUW ", "Costa do Marfim ": "CIV ", "Equador ": "ECU ",
-    "Holanda ": "NED ", "Japão ": "JPN ", "Suécia ": "SWE ", "Tunísia ": "TUN ",
-    "Bélgica ": "BEL ", "Egito ": "EGY ", "Irã ": "IRN ", "Nova Zelândia ": "NZL ",
-    "Espanha ": "ESP ", "Cabo Verde ": "CPV ", "Arábia Saudita ": "KSA ", "Uruguai ": "URU ",
-    "França ": "FRA ", "Senegal ": "SEN ", "Iraque ": "IRQ ", "Noruega ": "NOR ",
-    "Argentina ": "ARG ", "Argélia ": "ALG ", "Áustria ": "AUT ", "Jordânia ": "JOR ",
-    "Portugal ": "POR ", "RD Congo ": "COD ", "Uzbequistão ": "UZB ", "Colômbia ": "COL ",
-    "Inglaterra ": "ENG ", "Croácia ": "CRO ", "Gana ": "GHA ", "Panamá ": "PAN "
+    "México": "MEX", "África do Sul": "RSA", "Coreia do Sul": "KOR", "República Tcheca": "CZE",
+    "Canadá": "CAN", "Bósnia e Herzegovina": "BIH", "Catar": "QAT", "Suíça": "SUI",
+    "Brasil": "BRA", "Marrocos": "MAR", "Haiti": "HAI", "Escócia": "SCO",
+    "Estados Unidos": "USA", "Paraguai": "PAR", "Austrália": "AUS", "Turquia": "TUR",
+    "Alemanha": "GER", "Curaçao": "CUW", "Costa do Marfim": "CIV", "Equador": "ECU",
+    "Holanda": "NED", "Japão": "JPN", "Suécia": "SWE", "Tunísia": "TUN",
+    "Bélgica": "BEL", "Egito": "EGY", "Irã": "IRN", "Nova Zelândia": "NZL",
+    "Espanha": "ESP", "Cabo Verde": "CPV", "Arábia Saudita": "KSA", "Uruguai": "URU",
+    "França": "FRA", "Senegal": "SEN", "Iraque": "IRQ", "Noruega": "NOR",
+    "Argentina": "ARG", "Argélia": "ALG", "Áustria": "AUT", "Jordânia": "JOR",
+    "Portugal": "POR", "RD Congo": "COD", "Uzbequistão": "UZB", "Colômbia": "COL",
+    "Inglaterra": "ENG", "Croácia": "CRO", "Gana": "GHA", "Panamá": "PAN"
 };
 
 const teamRatings = {
     // Top 5 (Força Suprema - 99)
     "Argentina": 99, "França": 99, "Espanha": 99, "Inglaterra": 99, "Brasil": 99,
     // Top 6-10 (Força de Elite - 91)
-    "Bélgica ": 91, "Holanda ": 90, "Portugal ": 91, "Alemanha ": 90, "Croácia ": 90,
+    "Bélgica": 91, "Holanda": 90, "Portugal": 91, "Alemanha": 90, "Croácia": 90,
     // Tier 2 (Fortes - 80)
-    "México ": 80, "Coreia do Sul ": 80, "República Tcheca ": 80, "Suíça ": 80,
-    "Marrocos ": 80, "Estados Unidos ": 80, "Austrália ": 80, "Turquia ": 80,
-    "Equador ": 80, "Japão ": 80, "Suécia ": 80, "Uruguai ": 80, "Senegal ": 80,
-    "Noruega ": 80, "Áustria ": 80, "Colômbia ": 80,
+    "México": 80, "Coreia do Sul": 80, "República Tcheca": 80, "Suíça": 80,
+    "Marrocos": 80, "Estados Unidos": 80, "Austrália": 80, "Turquia": 80,
+    "Equador": 80, "Japão": 80, "Suécia": 80, "Uruguai": 80, "Senegal": 80,
+    "Noruega": 80, "Áustria": 80, "Colômbia": 80,
     // Tier 3 (Médias - 60)
-    "Canadá ": 60, "Bósnia e Herzegovina ": 60, "Catar ": 60, "Escócia ": 60,
-    "Paraguai ": 60, "Costa do Marfim ": 60, "Tunísia ": 60, "Egito ": 60,
-    "Irã ": 60, "Cabo Verde ": 60, "Arábia Saudita ": 60, "Iraque ": 60,
-    "Argélia ": 60, "Uzbequistão ": 60, "Gana ": 60, "Panamá ": 60,
+    "Canadá": 60, "Bósnia e Herzegovina": 60, "Catar": 60, "Escócia": 60,
+    "Paraguai": 60, "Costa do Marfim": 60, "Tunísia": 60, "Egito": 60,
+    "Irã": 60, "Cabo Verde": 60, "Arábia Saudita": 60, "Iraque": 60,
+    "Argélia": 60, "Uzbequistão": 60, "Gana": 60, "Panamá": 60,
     // Tier 4 (Azarões - 55)
-    "África do Sul ": 55, "Haiti ": 55, "Curaçao ": 55, "Nova Zelândia ": 55,
-    "Jordânia ": 55, "RD Congo ": 55
+    "África do Sul": 55, "Haiti": 55, "Curaçao": 55, "Nova Zelândia": 55,
+    "Jordânia": 55, "RD Congo": 55
 };
 
 function getFlagURL(teamName) {
