@@ -1044,7 +1044,30 @@ function generateKnockoutBracket() {
     const finalHTML = createMatchHTML(finalMatchId, teamAFinal, teamBFinal).replace('class="knockout-match"', 'class="knockout-match final-match"');
     const finalMatchWrapper = document.createElement('div');
     finalMatchWrapper.innerHTML = finalHTML;
-    center.appendChild(finalMatchWrapper.firstElementChild);
+    const finalEl = finalMatchWrapper.firstElementChild;
+    center.appendChild(finalEl);
+
+    // Se o vencedor da final já foi decidido (incluindo por pênaltis), mostra um badge claro
+    const finalWinner = winners[finalMatchId];
+    if (finalWinner && finalWinner !== 'TBD') {
+        // Evita duplicar o badge caso já exista
+        if (!center.querySelector('.champion-badge')) {
+            const champEl = document.createElement('div');
+            champEl.className = 'champion-badge';
+            champEl.style.cssText = 'margin-top:12px; display:flex; align-items:center; justify-content:center; gap:10px; background: linear-gradient(90deg,#ffd54a,#ffc107); color:#002776; padding:8px 12px; border-radius:10px; font-weight:700; box-shadow:0 6px 18px rgba(0,0,0,0.18);';
+
+            // Incluir resultado de pênaltis se houver empate no tempo normal
+            const s = state[finalMatchId] || {};
+            let penText = '';
+            if (s.home !== '' && s.away !== '' && s.home === s.away) {
+                const pen = getPenaltyResult(finalMatchId, teamAFinal, teamBFinal);
+                if (pen) penText = ` • Pênaltis ${pen.home}-${pen.away}`;
+            }
+
+            champEl.innerHTML = `🏆 Campeão: ${teamCodes[finalWinner]} ${penText}`;
+            center.appendChild(champEl);
+        }
+    }
 
     // Montar o grid final
     bracketGrid.appendChild(leftSide);
