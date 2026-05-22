@@ -44,9 +44,11 @@ const teamCodes = {
 };
 
 const teamRatings = {
-    // Top 10 (Força Máxima - 95)
-    "Argentina": 95, "França": 95, "Espanha": 95, "Inglaterra": 95, "Brasil": 95,
-    "Bélgica": 95, "Holanda": 95, "Portugal": 95, "Alemanha": 95, "Croácia": 95,
+    // Top 5 (Força Suprema - 99)
+    "Argentina": 99, "França": 99, "Espanha": 99, "Inglaterra": 99, "Brasil": 99,
+    
+    // Top 6-10 (Força de Elite - 91)
+    "Bélgica": 91, "Holanda": 91, "Portugal": 91, "Alemanha": 91, "Croácia": 91,
     
     // Tier 2 (Fortes - 83)
     "México": 83, "Coreia do Sul": 83, "República Tcheca": 83, "Suíça": 83,
