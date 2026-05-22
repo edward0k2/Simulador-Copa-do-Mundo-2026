@@ -48,7 +48,7 @@ const teamRatings = {
     "Argentina": 99, "França": 99, "Espanha": 99, "Inglaterra": 99, "Brasil": 99,
     
     // Top 6-10 (Força de Elite - 91)
-    "Bélgica": 91, "Holanda": 91, "Portugal": 91, "Alemanha": 91, "Croácia": 91,
+    "Bélgica": 91, "Holanda": 90, "Portugal": 91, "Alemanha": 90, "Croácia": 90,
     
     // Tier 2 (Fortes - 83)
     "México": 83, "Coreia do Sul": 83, "República Tcheca": 83, "Suíça": 83,
@@ -237,7 +237,7 @@ function startLiveSimulation() {
     generateKnockoutBracket();
     
     liveSimInterval = setInterval(() => {
-        liveSimTime += 3; // 3 minutos simulados a cada segundo
+        liveSimTime += 10; // 10 minutos simulados a cada segundo
         
         if (liveSimTime > 90) {
             finishPhase();
