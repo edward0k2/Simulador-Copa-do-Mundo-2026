@@ -237,7 +237,7 @@ function startLiveSimulation() {
     generateKnockoutBracket();
     
     liveSimInterval = setInterval(() => {
-        liveSimTime += 10; // 10 minutos simulados a cada segundo
+        liveSimTime += 30; // 30 minutos simulados a cada segundo
         
         if (liveSimTime > 90) {
             finishPhase();
@@ -846,22 +846,42 @@ function generateKnockoutBracket() {
     });
 
     const bestThirds = thirdPlaces.slice(0, 8);
-    let thirdIndex = 0;
+
+    // --- ALOCADOR DE TERCEIROS DA FIFA ---
+    // Mapeia os confrontos de terceiros no chaveamento e qual líder eles enfrentam
+    const slotsTerceiros = [
+        { key: "3s_E", grupoOponente: "E" },
+        { key: "3s_I", grupoOponente: "I" },
+        { key: "3s_D", grupoOponente: "D" },
+        { key: "3s_G", grupoOponente: "G" },
+        { key: "3s_A", grupoOponente: "A" },
+        { key: "3s_L", grupoOponente: "L" },
+        { key: "3s_B", grupoOponente: "B" },
+        { key: "3s_K", grupoOponente: "K" }
+    ];
+    let terceirosDisponiveis = [...bestThirds];
+    let alocacaoTerceiros = {};
+    slotsTerceiros.forEach(s => {
+        let indexEscolhido = terceirosDisponiveis.findIndex(t => t.group !== s.grupoOponente);
+        if (indexEscolhido === -1) indexEscolhido = 0;
+        alocacaoTerceiros[s.key] = terceirosDisponiveis[indexEscolhido];
+        terceirosDisponiveis.splice(indexEscolhido, 1);
+    });
 
     // Chaveamento EXATO oficial (Lado Esquerdo e Lado Direito)
     const matchups = [
         // Lado Esquerdo
-        ["1E", "3s"], ["1I", "3s"], ["2A", "2B"], ["1F", "2C"],
-        ["2K", "2L"], ["1H", "2J"], ["1D", "3s"], ["1G", "3s"],
+        ["1E", "3s_E"], ["1I", "3s_I"], ["2A", "2B"], ["1F", "2C"],
+        ["2K", "2L"], ["1H", "2J"], ["1D", "3s_D"], ["1G", "3s_G"],
         // Lado Direito
-        ["1C", "2F"], ["2E", "2I"], ["1A", "3s"], ["1L", "3s"],
-        ["1J", "2H"], ["2D", "2G"], ["1B", "3s"], ["1K", "3s"]
+        ["1C", "2F"], ["2E", "2I"], ["1A", "3s_A"], ["1L", "3s_L"],
+        ["1J", "2H"], ["2D", "2G"], ["1B", "3s_B"], ["1K", "3s_K"]
     ];
 
     function getTeamByCode(code) {
         if (!isSimulationStarted()) return "TBD";
-        if (code === "3s") {
-            const team = bestThirds[thirdIndex++];
+        if (code.startsWith("3s_")) {
+            const team = alocacaoTerceiros[code];
             return team ? team.name : "TBD";
         }
         const pos = parseInt(code[0]) - 1;
