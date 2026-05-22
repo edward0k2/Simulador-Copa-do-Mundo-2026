@@ -1069,6 +1069,20 @@ function generateKnockoutBracket() {
         }
     }
 
+    // Adiciona classe visual à caixa da final e destaca a linha do time vencedor
+    if (finalWinner && finalWinner !== 'TBD') {
+        try {
+            finalEl.classList.add('champion');
+            const rows = finalEl.querySelectorAll('.knockout-team-row');
+            if (rows && rows.length >= 2) {
+                const winnerIndex = (finalWinner === teamAFinal) ? 0 : 1;
+                rows[winnerIndex].classList.add('winner-row');
+            }
+        } catch (e) {
+            // ignore DOM errors
+        }
+    }
+
     // Montar o grid final
     bracketGrid.appendChild(leftSide);
     bracketGrid.appendChild(center);
