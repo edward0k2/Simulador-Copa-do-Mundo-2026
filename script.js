@@ -224,7 +224,7 @@ function startLiveSimulation() {
     generateKnockoutBracket();
     
     liveSimInterval = setInterval(() => {
-        liveSimTime += 15; // 15 minutos simulados a cada segundo
+        liveSimTime += 10; // 10 minutos simulados a cada segundo
         
         if (liveSimTime > 90) {
             finishPhase();
