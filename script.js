@@ -887,6 +887,35 @@ function generateKnockoutBracket() {
     center.className = 'bracket-center';
 
     let winners = {};
+    const penaltyResults = {};
+
+    function getPenaltyResult(matchId, teamA, teamB) {
+        if (!teamA || !teamB || teamA === 'TBD' || teamB === 'TBD') return null;
+        if (penaltyResults[matchId]) return penaltyResults[matchId];
+
+        const ratingA = teamRatings[teamA] || 70;
+        const ratingB = teamRatings[teamB] || 70;
+        let baseA = 4 + Math.round((ratingA - ratingB) / 25);
+        let baseB = 4 + Math.round((ratingB - ratingA) / 25);
+
+        const seed = Array.from(matchId + teamA + teamB).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+        const extraA = (seed % 3) - 1;
+        const extraB = ((Math.floor(seed / 3) + 1) % 3) - 1;
+
+        let home = Math.max(3, Math.min(6, baseA + extraA));
+        let away = Math.max(3, Math.min(6, baseB + extraB));
+
+        if (home === away) {
+            if (seed % 2 === 0) {
+                home = Math.min(6, home + 1);
+            } else {
+                away = Math.min(6, away + 1);
+            }
+        }
+
+        penaltyResults[matchId] = { home, away };
+        return penaltyResults[matchId];
+    }
 
     function getWinner(matchId, teamA, teamB) {
         const s = state[matchId];
@@ -895,6 +924,13 @@ function generateKnockoutBracket() {
             const a = parseInt(s.away);
             if (h > a) return teamA;
             if (a > h) return teamB;
+            if (matchId.startsWith('ko-')) {
+                const penalties = getPenaltyResult(matchId, teamA, teamB);
+                if (penalties) {
+                    if (penalties.home > penalties.away) return teamA;
+                    if (penalties.away > penalties.home) return teamB;
+                }
+            }
         }
         return "TBD";
     }
@@ -905,6 +941,13 @@ function generateKnockoutBracket() {
         
         const flagA = teamA === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamA)}" alt="${teamA}" title="${teamA}" class="team-flag team-name" />`;
         const flagB = teamB === 'TBD' ? `<div class="team-flag placeholder-flag">?</div>` : `<img src="${getFlagURL(teamB)}" alt="${teamB}" title="${teamB}" class="team-flag team-name" />`;
+
+        const isPenaltyTie = matchId.startsWith('ko-') && s.home !== '' && s.away !== '' && s.home === s.away;
+        const penaltyData = isPenaltyTie ? getPenaltyResult(matchId, teamA, teamB) : null;
+        const penaltyHTML = penaltyData ? `
+                <div class="penalty-result" style="margin: 0.5rem 0 0.25rem; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
+                    Pênaltis: ${penaltyData.home}-${penaltyData.away} • <strong>${penaltyData.home > penaltyData.away ? teamCodes[teamA] : teamCodes[teamB]}</strong> venceu
+                </div>` : '';
 
         const isReadOnly = currentMode === 'live' ? 'readonly' : '';
         const disabledA = teamA === 'TBD' ? 'disabled' : '';
@@ -934,6 +977,7 @@ function generateKnockoutBracket() {
                     <span class="team-name" title="${teamB}">${teamB === 'TBD' ? '?' : teamCodes[teamB]}</span>
                     <input type="number" min="0" class="score-input" style="margin-left: auto;" data-match="${matchId}" data-type="away" value="${s.away || ''}" ${disabledB} ${isReadOnly}>
                 </div>
+                ${penaltyHTML}
             </div>
         `;
     }
