@@ -1,16 +1,15 @@
+// ---- Definição dos Grupos da Copa do Mundo 2026 (Oficial FIFA) ----
 const worldCupGroups = {
-  A: ["México", "Alemanha", "Japão", "Austrália"],
-  B: ["Canadá", "França", "Senegal", "Coreia do Sul"],
-  C: ["Argentina", "Itália", "Egito", "Nova Zelândia"],
-  D: ["Estados Unidos", "Croácia", "Nigéria", "Costa Rica"],
-  E: ["Brasil", "Holanda", "Camarões", "Irã"],
-  F: ["Espanha", "Uruguai", "Marrocos", "Arábia Saudita"],
-  G: ["Inglaterra", "Colômbia", "Costa do Marfim", "Catar"],
-  H: ["Portugal", "Equador", "Gana", "Emirados Árabes"],
-  I: ["Bélgica", "Chile", "Argélia", "Uzbequistão"],
-  J: ["Suíça", "Peru", "Tunísia", "Iraque"],
-  K: ["Dinamarca", "Suécia", "Mali", "Honduras"],
-  L: ["Sérvia", "Polônia", "África do Sul", "Panamá"],
+  A: ["México", "África do Sul", "Coreia do Sul", "República Tcheca"],
+  B: ["Canadá", "Bósnia e Herzegovina", "Catar", "Suíça"],
+  C: ["Brasil", "Marrocos", "Haiti", "Escócia"],
+  D: ["Estados Unidos", "Paraguai", "Austrália", "Turquia"],
+  E: ["Alemanha", "Curaçao", "Costa do Marfim", "Equador"],
+  F: ["Holanda", "Japão", "Suécia", "Tunísia"],
+  G: ["Bélgica", "Egito", "Irã", "Nova Zelândia"],
+  H: ["Espanha", "Cabo Verde", "Arábia Saudita", "Uruguai"],
+  I: ["França", "Senegal", "Iraque", "Noruega"],
+  J: ["Argentina", "Argélia", "Áustria", "Jordânia"],
+  K: ["Portugal", "RD Congo", "Uzbequistão", "Colômbia"],
+  L: ["Inglaterra", "Croácia", "Gana", "Panamá"]
 };
-
-export default worldCupGroups;
