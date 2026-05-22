@@ -50,17 +50,17 @@ const teamRatings = {
     // Top 6-10 (Força de Elite - 91)
     "Bélgica": 91, "Holanda": 90, "Portugal": 91, "Alemanha": 90, "Croácia": 90,
     
-    // Tier 2 (Fortes - 83)
-    "México": 83, "Coreia do Sul": 83, "República Tcheca": 83, "Suíça": 83,
-    "Marrocos": 83, "Estados Unidos": 83, "Austrália": 83, "Turquia": 83,
-    "Equador": 83, "Japão": 83, "Suécia": 83, "Uruguai": 83, "Senegal": 83,
-    "Noruega": 83, "Áustria": 83, "Colômbia": 83,
+    // Tier 2 (Fortes - 80)
+    "México": 80, "Coreia do Sul": 80, "República Tcheca": 80, "Suíça": 80,
+    "Marrocos": 80, "Estados Unidos": 80, "Austrália": 80, "Turquia": 80,
+    "Equador": 80, "Japão": 80, "Suécia": 80, "Uruguai": 80, "Senegal": 80,
+    "Noruega": 80, "Áustria": 80, "Colômbia": 80,
     
-    // Tier 3 (Médias - 70)
-    "Canadá": 70, "Bósnia e Herzegovina": 70, "Catar": 70, "Escócia": 70,
-    "Paraguai": 70, "Costa do Marfim": 70, "Tunísia": 70, "Egito": 70,
-    "Irã": 70, "Cabo Verde": 70, "Arábia Saudita": 70, "Iraque": 70,
-    "Argélia": 70, "Uzbequistão": 70, "Gana": 70, "Panamá": 70,
+    // Tier 3 (Médias - 60)
+    "Canadá": 60, "Bósnia e Herzegovina": 60, "Catar": 60, "Escócia": 60,
+    "Paraguai": 60, "Costa do Marfim": 60, "Tunísia": 60, "Egito": 60,
+    "Irã": 60, "Cabo Verde": 60, "Arábia Saudita": 60, "Iraque": 60,
+    "Argélia": 60, "Uzbequistão": 60, "Gana": 60, "Panamá": 60,
     
     // Tier 4 (Azarões - 55)
     "África do Sul": 55, "Haiti": 55, "Curaçao": 55, "Nova Zelândia": 55,
