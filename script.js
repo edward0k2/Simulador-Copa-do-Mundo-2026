@@ -218,7 +218,7 @@ function startLiveSimulation() {
 
     // CORREÇÃO 2: Timer corrigido - 1 minuto simulado por segundo real
     liveSimInterval = setInterval(() => {
-        liveSimTime += 1; // 1 minuto simulado a cada segundo real
+        liveSimTime += 8; // 1 minuto simulado a cada segundo real
         
         if (liveSimTime > 90) {
             finishPhase();
