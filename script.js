@@ -43,6 +43,28 @@ const teamCodes = {
     "Inglaterra": "ENG", "Croácia": "CRO", "Gana": "GHA", "Panamá": "PAN"
 };
 
+const teamRatings = {
+    // Top 10 (Força Máxima - 95)
+    "Argentina": 95, "França": 95, "Espanha": 95, "Inglaterra": 95, "Brasil": 95,
+    "Bélgica": 95, "Holanda": 95, "Portugal": 95, "Alemanha": 95, "Croácia": 95,
+    
+    // Tier 2 (Fortes - 83)
+    "México": 83, "Coreia do Sul": 83, "República Tcheca": 83, "Suíça": 83,
+    "Marrocos": 83, "Estados Unidos": 83, "Austrália": 83, "Turquia": 83,
+    "Equador": 83, "Japão": 83, "Suécia": 83, "Uruguai": 83, "Senegal": 83,
+    "Noruega": 83, "Áustria": 83, "Colômbia": 83,
+    
+    // Tier 3 (Médias - 70)
+    "Canadá": 70, "Bósnia e Herzegovina": 70, "Catar": 70, "Escócia": 70,
+    "Paraguai": 70, "Costa do Marfim": 70, "Tunísia": 70, "Egito": 70,
+    "Irã": 70, "Cabo Verde": 70, "Arábia Saudita": 70, "Iraque": 70,
+    "Argélia": 70, "Uzbequistão": 70, "Gana": 70, "Panamá": 70,
+    
+    // Tier 4 (Azarões - 55)
+    "África do Sul": 55, "Haiti": 55, "Curaçao": 55, "Nova Zelândia": 55,
+    "Jordânia": 55, "Congo": 55
+};
+
 function getFlagURL(teamName) {
     const code = countryCodes[teamName];
     if (code) return `https://flagcdn.com/w40/${code}.png`;
@@ -243,6 +265,38 @@ function stopLiveSimulation() {
     }
 }
 
+function getTeamsForMatchId(matchId) {
+    if (matchId.includes('-') && !matchId.startsWith('ko-')) {
+        const parts = matchId.split('-');
+        const groupName = parts[0];
+        const index = parseInt(parts[1]);
+        const teams = worldCupGroups[groupName];
+        if (teams) {
+            const matches = generateMatches(teams);
+            const m = matches[index];
+            if (m) return { home: m.home, away: m.away };
+        }
+    }
+    
+    const inputHome = document.querySelector(`input[data-match="${matchId}"][data-type="home"]`);
+    const inputAway = document.querySelector(`input[data-match="${matchId}"][data-type="away"]`);
+    if (inputHome && inputAway) {
+        const rowHome = inputHome.closest('.knockout-team-row');
+        const rowAway = inputAway.closest('.knockout-team-row');
+        if (rowHome && rowAway) {
+            const spanHome = rowHome.querySelector('.team-name');
+            const spanAway = rowAway.querySelector('.team-name');
+            if (spanHome && spanAway) {
+                return {
+                    home: spanHome.getAttribute('title') || 'TBD',
+                    away: spanAway.getAttribute('title') || 'TBD'
+                };
+            }
+        }
+    }
+    return { home: 'TBD', away: 'TBD' };
+}
+
 function updateActiveMatches() {
     const activeMatches = getActiveMatchesForPhase(liveSimPhase);
     const statusEl = document.getElementById('live-connection-status');
@@ -268,11 +322,23 @@ function updateActiveMatches() {
         
         liveMatchInfo[matchId] = { minute: liveSimTime, status: 'LIVE' };
         
-        // Peso leve com base no sorteio de gols
-        if (Math.random() < 0.04) {
+        // Peso dinâmico baseado no Ranking da FIFA
+        const teams = getTeamsForMatchId(matchId);
+        const ratingHome = teamRatings[teams.home] || 70;
+        const ratingAway = teamRatings[teams.away] || 70;
+        
+        // Fator multiplicador baseado nas forças relativas
+        const factorHome = ratingHome / ratingAway;
+        const factorAway = ratingAway / ratingHome;
+        
+        // Probabilidades de gol ponderadas (base 4% ou 0.04)
+        const probHome = 0.04 * factorHome;
+        const probAway = 0.04 * factorAway;
+        
+        if (Math.random() < probHome) {
             liveState[matchId].home = (parseInt(liveState[matchId].home || 0) + 1).toString();
         }
-        if (Math.random() < 0.04) {
+        if (Math.random() < probAway) {
             liveState[matchId].away = (parseInt(liveState[matchId].away || 0) + 1).toString();
         }
     });
