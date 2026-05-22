@@ -1,17 +1,4 @@
-const worldCupGroups = {
-  A: ["México", "África do Sul", "Coreia do Sul", "República Tcheca"],
-  B: ["Canadá", "Bósnia e Herzegovina", "Catar", "Suíça"],
-  C: ["Brasil", "Marrocos", "Haiti", "Escócia"],
-  D: ["Estados Unidos", "Paraguai", "Austrália", "Turquia"],
-  E: ["Alemanha", "Curaçao", "Costa do Marfim", "Equador"],
-  F: ["Holanda", "Japão", "Suécia", "Tunísia"],
-  G: ["Bélgica", "Egito", "Irã", "Nova Zelândia"],
-  H: ["Espanha", "Cabo Verde", "Arábia Saudita", "Uruguai"],
-  I: ["França", "Senegal", "Iraque", "Noruega"],
-  J: ["Argentina", "Argélia", "Áustria", "Jordânia"],
-  K: ["Portugal", "Congo", "Uzbequistão", "Colômbia"],
-  L: ["Inglaterra", "Croácia", "Gana", "Panamá"]
-};
+// worldCupGroups é definido em teams.js (carregado antes deste script)
 
 const countryCodes = {
     "México": "mx", "África do Sul": "za", "Coreia do Sul": "kr", "República Tcheca": "cz",
@@ -25,7 +12,11 @@ const countryCodes = {
     "França": "fr", "Senegal": "sn", "Iraque": "iq", "Noruega": "no",
     "Argentina": "ar", "Argélia": "dz", "Áustria": "at", "Jordânia": "jo",
     "Portugal": "pt", "Congo": "cd", "Uzbequistão": "uz", "Colômbia": "co",
-    "Inglaterra": "gb-eng", "Croácia": "hr", "Gana": "gh", "Panamá": "pa"
+    "Inglaterra": "gb-eng", "Croácia": "hr", "Gana": "gh", "Panamá": "pa",
+    // Times adicionados via teams.js
+    "Itália": "it", "Nigéria": "ng", "Costa Rica": "cr", "Camarões": "cm",
+    "Chile": "cl", "Peru": "pe", "Dinamarca": "dk", "Mali": "ml",
+    "Honduras": "hn", "Sérvia": "rs", "Polônia": "pl", "Emirados Árabes": "ae"
 };
 
 const teamCodes = {
@@ -40,7 +31,11 @@ const teamCodes = {
     "França": "FRA", "Senegal": "SEN", "Iraque": "IRQ", "Noruega": "NOR",
     "Argentina": "ARG", "Argélia": "ALG", "Áustria": "AUT", "Jordânia": "JOR",
     "Portugal": "POR", "Congo": "COD", "Uzbequistão": "UZB", "Colômbia": "COL",
-    "Inglaterra": "ENG", "Croácia": "CRO", "Gana": "GHA", "Panamá": "PAN"
+    "Inglaterra": "ENG", "Croácia": "CRO", "Gana": "GHA", "Panamá": "PAN",
+    // Times adicionados via teams.js
+    "Itália": "ITA", "Nigéria": "NGA", "Costa Rica": "CRC", "Camarões": "CMR",
+    "Chile": "CHI", "Peru": "PER", "Dinamarca": "DEN", "Mali": "MLI",
+    "Honduras": "HON", "Sérvia": "SRB", "Polônia": "POL", "Emirados Árabes": "UAE"
 };
 
 const teamRatings = {
@@ -55,12 +50,15 @@ const teamRatings = {
     "Marrocos": 80, "Estados Unidos": 80, "Austrália": 80, "Turquia": 80,
     "Equador": 80, "Japão": 80, "Suécia": 80, "Uruguai": 80, "Senegal": 80,
     "Noruega": 80, "Áustria": 80, "Colômbia": 80,
+    "Itália": 88, "Dinamarca": 80, "Sérvia": 80, "Polônia": 78, "Chile": 78, "Peru": 75,
     
     // Tier 3 (Médias - 60)
     "Canadá": 60, "Bósnia e Herzegovina": 60, "Catar": 60, "Escócia": 60,
     "Paraguai": 60, "Costa do Marfim": 60, "Tunísia": 60, "Egito": 60,
     "Irã": 60, "Cabo Verde": 60, "Arábia Saudita": 60, "Iraque": 60,
     "Argélia": 60, "Uzbequistão": 60, "Gana": 60, "Panamá": 60,
+    "Nigéria": 65, "Costa Rica": 60, "Camarões": 62, "Honduras": 55,
+    "Mali": 58, "Emirados Árabes": 55,
     
     // Tier 4 (Azarões - 55)
     "África do Sul": 55, "Haiti": 55, "Curaçao": 55, "Nova Zelândia": 55,
